@@ -1,0 +1,121 @@
+<div id="page-wrapper" >
+  <section id="profile-wrapper" class="profile-page static-page">
+      <div class="alert alert-danger" ng-if="loginError" role="alert">{{loginErrorText}}</div>
+      <div class="container" ng-controller="MGSCommonController">
+       <div class="tab-structure" ng-if="isAuthenticated()">
+          <div class="userprofile inactive"><a ui-sref="UserProfile">My Profile</a></div>
+          <div class="servicehistory active"><a ui-sref="MyService">Service History</a></div>
+        </div>
+          <!-- Service History -->
+           <div class="sr-history" id="rs1-table">
+          <!-- Filter Content -->
+          <div ng-controller='QuoteController' ng-init="getQuotes(user_id);">
+            <div class="filter-info" ng-if="displaylist==1" ng-if="isAuthenticated()">
+               <div class="panel panel-default visible-xs">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"  data-target="#collapse-filter-info" data-toggle="collapse" ng-click='activity.default = !activity.default'>
+                          Filters
+                          <span><img src="themes/mgs/images/mobile/filter-icon.png" class="filter-icon" /></span>
+                        </h4>
+                   </div>
+                   <div id="collapse-filter-info" class="panel-collapse collapse " resize>
+                     <div class="panel-body">
+                        <div class="sr-history-content pager-content">
+                      <div>
+                      <form role="form" name="quoteAdvacncedSearch" id="quoteAdvacncedSearch" ng-submit="getQuotes(quote)" novalidate ng-class="{'submitted':submitted}" >
+                      <label class="filter-label">Service Date:</label>
+                      <div class="top-content col-md-12">
+                      <div class="search-form col-xs-6">
+                        <div class="form-group">
+                          <span class="filterlabel">From</span>
+                              <p class="input-group sr-fromdate">
+                                <input class="form-control" type="text" class="form-control" uib-datepicker-popup   ng-model="quote.fromDate"   close-text="Close"  is-open="fromdatepicker.opened" popup-placement="bottom-left left-bottom"/ name="fromDate">
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-datetime" ng-click="openFromDate()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                  </span>
+                              </p>
+                        </div>
+                      </div>
+                        <div class="search-form col-xs-6">
+                          <div class="form-group">
+                          <span class="filterlabel">To</span>
+                              <p class="input-group sr-todate">
+                                <input class="form-control" type="text" class="form-control" uib-datepicker-popup   ng-model="quote.toDate"  ng-required="true" close-text="Close"  is-open="todatepicker.opened" popup-placement="bottom-left left-bottom"/ name="toDate">
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-datetime" ng-click="openToDate()">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                  </span>
+                              </p>
+                        </div>
+                          </div>
+                     <div class="top-content">
+                      <div class="form-group"  ng-init="getServices()">
+                         <label for="quote_sr_type" class="filter-label">Service Type:</label>
+                         <select id="service_type" name="service_type" ng-model="quote.service_type" >
+                            <option value=''>Select a Service</option>
+                            <option ng-repeat="service in services" value='{{service.id}}'>{{service.service_name}}</option>
+                           </select>
+                      </div>
+                        <div class="search-form">
+                          <div class="form-group" ng-init="getStatus()">
+                             <label for="quote_status">Status:</label>
+                            <select ng-model="quote.status_id" name='status_id' id='status_id' >
+                              <option value=''>Select</option>
+                              <option  ng-repeat='key in status' value="{{key.id}}">{{key.status_internal_name}}</option>
+                           </select>
+                          </div>
+                        </div>
+                      </div>
+                        <div class="top-content search-button">
+                          <div class="form-group">
+                                <button type="submit" value="submit" class="btn btn-info btn-submit">SUBMIT</button>
+                                <button type="reset" value="reset" class="btn btn-info">RESET</button>
+                          </div>
+                          </div>
+                        </div>
+                    </form>
+                    </div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- End -->
+                            <a ng-if="isAuthenticated()" class="btn-back dl pull-right" ng-click="BackToList();" href="/#/myservices" ng-if="displaylist==0"><< Back to list</a>
+                    <div ng-if="displaylist==1" >
+                    <table class="table quote-view-table">
+                        <tbody>
+                            <tr ng-if="quotes.length == 0"><td colspan="11"><h5> No service booked by you.</h5></td></tr>
+                           <tr ng-repeat='quote in quotes.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))'>
+                              <td class="sr-history-name"><a ui-sref="MyService.quoteview({quoteId:quote.id})" ng-click="checkflag();">{{quote.service_name}}</a></td>
+                              <!-- <td>{{quote.option}}</td> -->
+                              <td class="sr-history-date">{{quote.appointment_date | date: 'yyyy-MM-dd' }}</td>
+                              <td class="sr-history-rs"><span  ng-if="quote.status_id==8">Rs. {{quote.quote_price ? quote.quote_price : 0}}</span></td>
+                              <td class="hidden-xs"><b>{{quote.status.external}}</b></td>
+                              <td class="mb-view-result hidden-xs">
+                                 <a ui-sref="MyService.quoteview({quoteId:quote.id})" ><button type="button" class="btn btn-info" ng-click="checkflag();">
+                                 View Quote
+                                 </button></a>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                      <div class="col-md-12" ng-show="totalItems > 10" >
+                            <div class="quote-pagination">
+                            <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                            <div class="show-quote-status">
+                            <label>Show: </label>
+                             <select data-ng-model="viewby" data-ng-options="v as k for (k, v) in numitems" ng-change="setItemsPerPage(viewby)"></select>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                     </div>
+                <div ui-view class="quote-filter-view"></div>
+           </div>
+      </div>
+  </section>
+</div>

@@ -1,0 +1,73 @@
+<div class="modal-body">
+  <div class="col-md-12 signupform">
+      <flash-message></flash-message>
+      <span ng-controller="MGSCommonController" class="btn-close">
+      <button class="close" type="button" ng-click="closepopup()">&times;</button>
+      </span>
+    <span class="hightlight popup-title">Register at MyGharseva.com</span>
+
+    <form name="registration" novalidate ng-submit="register()" ng-class="{'submitted':submitted}">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="register.firstname" name="firstname" required placeholder="Name *" />
+        <span class="messages" ng-messages="registration.firstname.$error" ng-if="submitted" >
+          <span ng-message='required'>Please enter Name.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="register.username" name="username" required minlength="3" placeholder="Username *" />
+        <span style="font-size: 12px">You can use Email/Mobile no as your username<br></span>
+        <span class="messages" ng-messages="registration.username.$error" ng-if="submitted" >
+          <span ng-message='required'>Please enter User Name.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" ng-model="register.email" name="email" ng-required="true" ng-pattern="/^[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/" placeholder="Email Address *" />
+        <span class="messages" ng-messages="registration.email.$error" ng-if="submitted">
+          <span ng-message='required'>Please enter Email.</span>
+          <span ng-message="pattern">Please enter Valid Email.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="register.phonenumber" name="phonenumber" required ng-pattern="/^[0789]\d{9}$/" placeholder="Mobile Number *" />
+        <span class="messages" ng-messages="registration.phonenumber.$error"  ng-if="submitted">
+          <span ng-message='required'>Please enter Phone number</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="password" ng-model="register.password" ng-required="true" ng-minlength="3" placeholder="Password *" />
+        <span class="messages" ng-messages="registration.password.$error" ng-if="submitted">
+          <span ng-message='required'>Please enter Password.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="confirmPassword" ng-model='confirmPassword' ng-required="true" ng-minlength="3" compare-to="register.password" placeholder="Retype Password *" />
+        <span class="messages" ng-messages="registration.confirmPassword.$error" ng-if="submitted">
+          <span ng-message='required'>Please enter Confirm Password</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <!--   verification token -->
+      </div>
+      <div class="form-group">
+        <!-- future perpose captch -->
+      </div>
+      <div class="form-group">
+        <input type="checkbox" name="termsnconditions" ng-model="register.termsnconditions" ng-required="true"/> I have read & agree with <a ui-sref="term-condition" target="_blank">Terms & Conditions</a><br>
+        <span class="messages" ng-messages="registration.termsnconditions.$error" ng-if="submitted">
+        <span ng-message='required'>Please agree to the Terms and Conditions.</span>
+        <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-info" ng-click="ga('send', 'event', { eventCategory: 'User Sign up', eventAction: 'Click Sign up', eventLabel: 'Registration Done'});">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

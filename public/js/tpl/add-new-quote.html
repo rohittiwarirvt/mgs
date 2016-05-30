@@ -1,0 +1,372 @@
+
+<div class="add-quote-page admin-section ">
+    <flash-message></flash-message>
+<!-- Quick Search Section -->
+  <section id="quote-info" class="section-area" ng-class="{'submitted':submitted}" >
+      <div class="container">
+        <div class="section-heading">
+        <h5><strong>Quote Date: {{quote.date}}</strong></h5>
+        <h5 ng-show="quote.id"><strong>Quote Id: {{quote.id}}</strong></h5>
+        </div>
+        <div class="row queue-content divider">
+          <div class="col-md-6">
+          <!-- Customer Details Info -->
+          <div class="panel panel-default add-cust-info">
+            <div class="panel-heading">
+              <h5 class="panel-title">
+               <span> Customer Details</span> <span class="get-cust-info pull-right btn btn-info" ng-click="getCustomerInfo()">Get Cutomer Info</span>
+              </h5>
+            </div>
+            <div id="customer-details" class="panel-collapse collapse in" aria-expanded="true">
+                <div class="panel-body">
+                      <form role="form" name="customereDetail" class="form-horizontal cust-details" novalidate>
+                        <div class="form-group">
+                          <label class="col-sm-3">Customer Name:</label>
+                          <div class="col-sm-9">
+                          <div class ="col-sm-6 no-padding-left">
+                            <input type="text" name="firstName" ng-model="quote.firstName" class="form-control" ng-required="true" placeholder ="First Name *">
+                              <span class="messages" ng-messages="customereDetail.firstName.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter First Name.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                              </span>
+                          </div>
+
+                          <div class="col-sm-6 no-padding-left">
+                            <input type="text" name="lastName" ng-model="quote.lastName" class="form-control" placeholder="Last Name">
+                          </div>
+                          </div>
+                        </div>
+                       <div class="form-group">
+                          <label class="col-sm-3">Phone:</label>
+                          <div class="col-sm-9">
+                          <input type="text" name="phoneNumber" ng-model="quote.phonenumber" class="form-control input-md-box" ng-required="true" ng-pattern="/^[0789]\d{9}$/">
+                              <span class="messages" ng-messages="customereDetail.phoneNumber.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter Phone number.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                              </span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Email:</label>
+                          <div class="col-sm-9">
+                          <input type="text" name="email" ng-model="quote.email" class="form-control" ng-required="true" ng-pattern="/^[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/" >
+                          <span class="messages" ng-messages="customereDetail.email.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter Email Address.</span>
+                                <span ng-message="pattern">Please enter Valid Email.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                          </span>
+                          </div>
+
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Address:</label>
+                          <div class="col-sm-9">
+                          <input required type="text" name="custaddr" ng-model="quote.address1" class="form-control" >
+                          <span class="messages" ng-messages="customereDetail.custaddr.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter Address.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                          </span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                         <label class="col-sm-3">State:</label>
+                         <div class="col-sm-9">
+                            <input type="text" name="cust-state" value="MH" ng-disabled="true">
+                         </div>
+                      </div>
+                      <div class="form-group">
+                       <label class="col-sm-3">City:</label>
+                       <div class="col-sm-9">
+                          <input type="text" name="cust-city" ng-controller="MGSCommonController" ng-model="selectedCity.name" ng-disabled="true">
+                       </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Pincode:</label>
+                          <div class="col-sm-9">
+                          <input required type="text" name="custpincode" ng-model="quote.pincode" class="form-control input-sml-box" >
+                          <span class="messages" ng-messages="customereDetail.custpincode.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter Pincode.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                          </span>
+                          </div>
+                      </div>
+                      </form>
+                </div>
+            </div>
+          </div>
+          <!--Service Details -->
+          <div class="panel panel-default add-service-info">
+            <div class="panel-heading">
+              <h5 class="panel-title">
+                Service Details
+              </h5>
+            </div>
+            <div id="service-details" class="panel-collapse collapse in" aria-expanded="true">
+                <div class="panel-body">
+                      <form role="form" name="ServiceDetail" class="form-horizontal sr-details" >
+                        <div class="form-group service-datetime">
+                            <label class="col-sm-3">Service Date:</label>
+                          <div class="col-sm-9">
+                          <p class="input-group">
+                          <input required class="form-control" type="text" class="form-control" uib-datepicker-popup   ng-model="quote.appointmentDate" datepicker-options="dateOptions" ng-required="true" close-text="Close"  is-open="datepicker.opened"  name="appointmentDate"/>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default btn-datetime" ng-click="openDate()">
+                                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                          </p>
+                           <span class="messages" ng-messages="ServiceDetail.appointmentDate.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter Appointment Date.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                          </span>
+                          </div>
+                        </div>
+                      <div class="form-group service-datetime">
+                          <label class="col-sm-3">Service Time:</label>
+                          <div class="col-sm-9">
+                             <div class="service-time">
+                                <timepicker-pop input-time="quote.appointmentTime" required  class="input-group" show-meridian='ismeridian'>
+                                </timepicker-pop>
+                                <span class="messages" ng-messages="ServiceDetail.custpincode.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter Service Time.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                          </span>
+                             </div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Service Type:</label>
+                          <div class="col-sm-9">
+                           <select name="sdtype" ng-model="service" class="form-control input-md-box" ng-options='service.service_name for service in services track by service.url' ng-change='products()' required>
+                                <option value="">-- Choose Service --</option>
+                           </select>
+                          <span class="messages" ng-messages="ServiceDetail.sdtype.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter Service Type.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                          </span>
+                          </div>
+                      </div>
+                      <div class="form-group subservices">
+
+                          <label class="col-sm-3">Sub-Services:</label>
+                          <div class="col-sm-9">
+                              <div class="form-widget">
+                                                      <div ng-if="servicenotselected" class="submitted" >
+                                    <p class="messages">Please Select Some Services.</p>
+                          </div>
+                                  <div class="form-group" ng-repeat="value in $products">
+                                        <span ng-show='false' ng-init="buildAttributes(value.product_name); makeSingleSelectionForProducts(value);"></span>
+                                        <div class="product-attr prod-id-{{value.id}}" ng-if="multipleAttributes[value.product_name]">
+                                            <label  mgs-painting-valid class="product-name">{{value.product_name}}   </label>
+                                            <div ng-dropdown-multiselect=""  options="attributesModel[value.id]" selected-model="attributesPackageModel[value.id]" checkboxes="true" extra-settings="extrasettings[value.id]" translation-texts="translationtexts"> </div>
+                                             <div ng-show="toshowOptions" >
+                                                <div ng-repeat="(optionkey, options) in  optionsToShow">
+                                                <label  class="option-name" ng-init='getAttributeLabel(optionkey)'>{{optionAttributeLabel[optionkey].attribute_name}}   </label>
+                                                    <div ng-dropdown-multiselect=""  options="options" selected-model="optionsPackageModel[optionkey]" checkboxes="true" extra-settings="optionsExtraSettings" translation-texts="optionsTranslationTexts[optionkey]" > </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="singleAttribute[value.product_name]">
+                                            <div class="checkbox"><label><input class="checkboxInput" type="checkbox" ng-checked="isExist(attributesPackageModel[value.id], { 'id' : value.id})"  ng-click="toggleSelection(value.id)" /> {{value.product_name}}</label></div>
+                                        </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      </form>
+                </div>
+            </div>
+          </div>
+          </div>
+          <div class="col-md-6">
+          <!-- Service Charges -->
+        <form role='form' name="servicePrice" class="form-horizontal sr-details" novalidate>
+          <div class="panel panel-default add-service-info">
+            <div class="panel-heading">
+              <h5 class="panel-title">
+                Service Charges
+              </h5>
+            </div>
+          <div id="service-rate-details" class="service-charges-details panel-collapse collapse in" aria-expanded="true">
+            <div class="panel-body">
+            <div class="header clearfix ">
+               <div class="specification-header col-sm-3">Services</div>
+               <div class="specification-price col-sm-2"> Price</div>
+               <div class="specification-quantity col-sm-2"> Quantity</div>
+               <div class="specification-unit col-sm-2"> Unit</div>
+               <div class="specification-unit col-sm-3"> Discount</div>
+            </div>
+            <div class="form-group" ng-repeat="(prod, prodValues) in serviceGroupBySpecs" >
+               <span class="prodlabel" >{{prod}}</span>
+               <div ng-repeat="(key, attributesValues) in prodValues">
+                  <div  class="attribute-level" ng-if="optionsNotPresent">
+                     <div class="grouper" ng-if='attributesValues.attribute.id'>
+                        <label  class="col-sm-3 no-padding-right">{{attributesValues.attribute.attribute_name}} : </label>
+                        <div class="col-sm-2 no-padding-left sr-charge sr-charge-price">
+                           <!--                         <label class="rupess-label  no-padding">Rs.</label> -->
+                           <input  type="text" name="sr-charge" ng-model='serviceGroupBySpecs[prod][key].attribute.price'  class="form-control"/>
+                        </div>
+                        <div class="col-sm-2  no-padding-left sr-charge sr-charge-qty">
+                           <input numeric formatting='false' decimals="0" type="text" name="sr-quantity" ng-model='serviceGroupBySpecs[prod][key].attribute.quantity' min="1" class="form-control"/>
+                        </div>
+                        <div class="col-sm-2  no-padding sr-charge sr-charge-unit">
+                          <select name="unit-sel" ng-model="serviceGroupBySpecs[prod][key].attribute.unit" class="form-control input-md-box" ng-options='unit for unit in units track by unit' >
+                                <option value="">Select Unit</option>
+                           </select>
+                        </div>
+                      <div class="col-sm-3  no-padding sr-charge sr-discount">
+                           <label class="col-sm-1">
+                             <input type="checkbox" ng-model="serviceGroupBySpecs[prod][key].attribute.setDiscount" ng-checked="!!serviceGroupBySpecs[prod][key].attribute.setDiscount" />
+                           </label>
+                            <input class="col-sm-4 form-control discount-input" ng-if='serviceGroupBySpecs[prod][key].attribute.setDiscount' type="text" name="discount-on" ng-model='serviceGroupBySpecs[prod][key].attribute.discount' numeric formatting='false'  min="1" max="100" class="form-control col-sm-2 discount-input"/> <span ng-class="{'hideme':serviceGroupBySpecs[prod][key].product.setDiscount}">% </span>
+
+                      </div>
+                     </div>
+                     <div class="grouper single-attribute" ng-if='!attributesValues.attribute.id'>
+                        <div class="col-sm-2 sr-charge sr-charge-price no-padding-left">
+                           <!--                         <label class="rupess-label">Rs.</label> -->
+                           <input type="text" name="sr-charge" ng-model='serviceGroupBySpecs[prod][key].product.price'  class="form-control "/>
+                        </div>
+                        <div class="col-sm-2  no-padding-left sr-charge sr-charge-qty">
+                           <input numeric formatting='false' decimals="0" type="text" name="sr-quantity" ng-model='serviceGroupBySpecs[prod][key].product.quantity'  min="1" class="form-control "/>
+                        </div>
+                        <div class="col-sm-2  no-padding sr-charge sr-charge-unit">
+                          <select name="unit-sel" ng-model="serviceGroupBySpecs[prod][key].product.unit" class="form-control input-md-box" ng-options='unit for unit in units track by unit' >
+                                <option value="">Select Unit</option>
+                           </select>
+                        </div>
+                        <div class="col-sm-3  no-padding sr-charge sr-discount">
+                           <label class="col-sm-1">
+                             <input type="checkbox" ng-model="serviceGroupBySpecs[prod][key].product.setDiscount" ng-checked="!!serviceGroupBySpecs[prod][key].product.setDiscount"/>
+                           </label>
+
+                           <input  class="col-sm-4 form-control discount-input" ng-if='serviceGroupBySpecs[prod][key].product.setDiscount' type="text" name="discount-on" ng-model='serviceGroupBySpecs[prod][key].product.discount' numeric formatting='false'  min="1" max="100" class="form-control"/> <span ng-class="{'hideme':serviceGroupBySpecs[prod][key].product.setDiscount}">% </span>
+                      </div>
+                     </div>
+                  </div>
+                  <div  class="attribute-level" ng-if="!optionsNotPresent">
+                     <label  class="col-sm-4 no-padding-right">{{attributesValues.option.option_name}} : </label>
+                     <div class="col-sm-4 no-padding-left sr-charge sr-charge-price">
+                        <!--                       <label class="rupess-label">Rs.</label> -->
+                        <input type="text" name="sr-charge" ng-model='serviceGroupBySpecs[prod][key].option.price'   class="form-control" />
+                     </div>
+                     <div class="col-sm-2  no-padding-left sr-charge sr-charge-qty">
+                        <input type="text" numeric formatting='false' decimals="0" name="sr-quantity" ng-model='serviceGroupBySpecs[prod][key].option.quantity'  ng-min="1"  class="form-control"/>
+                     </div>
+                     <div class="col-sm-2  no-padding sr-charge sr-charge-unit">
+                          <select name="unit-sel" ng-model="serviceGroupBySpecs[prod][key].option.unit" class="form-control input-md-box" ng-options='unit for unit in units track by unit' >
+                                <option value="">Select Unit</option>
+                           </select>
+                     </div>
+                    <div class="col-sm-2  no-padding sr-charge sr-discount">
+                           <label class="col-sm-1">
+                             <input type="checkbox" ng-model="serviceGroupBySpecs[prod][key].option.setDiscount" ng-checked="!!serviceGroupBySpecs[prod][key].option.setDiscount"/>
+                           </label>
+                           <input  class="col-sm-4 form-control discount-input" ng-if='serviceGroupBySpecs[prod][key].option.setDiscount' type="text" name="discount-on" ng-model='serviceGroupBySpecs[prod][key].option.discount'  numeric formatting='false' min="1" max="100" class="form-control"/> <span ng-class="{'hideme':serviceGroupBySpecs[prod][key].product.setDiscount}">% </span>
+                           %
+                      </div>
+                  </div>
+               </div>
+            </div>
+               <!-- Add More Button -->
+            <div class="add-more-material form-group">
+               <div class="header clearfix ">
+                  <div class="material-header col-sm-4">Material Name</div>
+                  <div class="material-quantity col-sm-3"> Quantity</div>
+                  <div class="material-price col-sm-3"> Unit/Price</div>
+                  <div class="specification-unit col-sm-1"> Total</div>
+               </div>
+               <fieldset data-ng-repeat="material in materials" class="material-box">
+                  <input type="text" name="sr-item1" ng-model="material.material_name" class="col-sm-4 material" />
+                  <input type="text" numeric formatting='false' decimals="0" min="1"  name="sr-item2"  ng-model="material.material_quantity" class="col-sm-2 material" />
+                  <input type="text" name="sr-item3" numeric formatting='false' decimals="0" min="1" ng-model="material.unit_price" class="col-sm-3 material" />
+                  <div class="col-sm-1">{{material.material_total}}</div>
+                  <button class="remove btn btn-info" ng-show="$last" ng-click="removeMaterial()">Remove</button>
+               </fieldset>
+               <button class="addfields btn btn-info" ng-click="addNewMaterial()">Add Material</button>
+            </div>
+               <div class="material-charges clearfix" ng-if='materialCharges'>
+                  <label class="col-sm-5">Grand Total:</label>
+                  <div class="text-center">  {{materialCharges}}</div>
+               </div >
+               <!-- End More Button -->
+               <div class="form-group other-charges clearfix">
+                  <div class="header clearfix ">
+                     <div class="specification-header col-sm-5">Other Inputs</div>
+                     <div class="specification-price col-sm-7 text-center"> Price</div>
+                     <!--                   <div class="specification-quantity col-sm-2"> Quantity</div>
+                        <div class="specification-unit col-sm-2"> Unit</div> -->
+                  </div>
+                  <div class="data content clearfix">
+                    <div class="attribute-level">
+                     <label  class="col-sm-5">Labor Charges : </label>
+                     <div class="col-sm-7">
+                        <label class="labor-label col-sm-3">Rs.</label>
+                        <input type="text" numeric formatting='false' decimals="0" min="0"  name="labor-charge" ng-model='labourCharges'  class="form-control input-sml-box" />
+                     </div>
+                    </div>
+                    <div class="attribute-level">
+                     <label  class="col-sm-5">Service Tax : </label>
+                     <div class="col-sm-7">
+                        <label class="servicetax-label col-sm-3">%</label>
+                        <input type="text" numeric formatting='false'  min="0" max="100" name="servicetax-charge" ng-model='serviceTax'  class="form-control input-sml-box" />
+                     </div>
+                    </div>
+                    <div class="attribute-level">
+                     <label  class="col-sm-5">VAT Tax : </label>
+                     <div class="col-sm-7">
+                        <label class="vat-label col-sm-3">%</label>
+                        <input type="text" numeric formatting='false'  min="0" max="100" name="vat-charge" ng-model='VAT'  class="form-control input-sml-box" />
+                     </div>
+                     </div>
+                  </div>
+                  <div class="grand-total  clearfix">
+                     <div class="header clearfix other-charges-calc">
+                        <div class="specification-header col-sm-5">Other Charges</div>
+                        <div class="specification-price col-sm-7 text-center"> Price</div>
+                        <!--                   <div class="specification-quantity col-sm-2"> Quantity</div>
+                           <div class="specification-unit col-sm-2"> Unit</div> -->
+                     </div>
+                     <div >
+                        <div class="price-without-discount clearfix" ng-if='priceWithoutDiscount'>
+                           <label class="col-sm-5">Actual Price:</label>
+                           <div class="text-center">{{priceWithoutDiscount}} </div>
+                        </div >
+                        <div class="total-discount clearfix" ng-if='totalDiscount'>
+                           <label class="col-sm-5">Discount:</label>
+                           <div class="text-center"> - {{totalDiscount}}</div>
+                        </div >
+                        <div class="labour-charges clearfix" ng-if='labourCharges'>
+                           <label class="col-sm-5">Labour Charges:</label>
+                           <div class="text-center"> + {{labourCharges}}</div>
+                        </div>
+                        <div class="material-charges clearfix" ng-if='materialCharges'>
+                           <label class="col-sm-5">Material Charges:</label>
+                           <div class="text-center"> + {{materialCharges}}</div>
+                        </div >
+                     <div class="vat clearfix" ng-if='VATCalc'>
+                        <label class="col-sm-5">VAT:</label>
+                        <div class="text-center">+ {{VATCalc}}  ( {{VAT}}% )</div>
+                     </div>
+                     <div class="servicetax clearfix" ng-if='serviceTaxCalc'>
+                        <label class="col-sm-5">Service Tax:</label>
+                        <div class="text-center">+ {{serviceTaxCalc}}  ( {{serviceTax}}% ) </div>
+                     </div>
+                     </div>
+                     <div class="final-price clearfix">
+                        <label class="col-sm-4">Grand Total:</label>
+                        <div class="text-center">Rs. {{quote.price | number : 2}}</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div> 
+      </div>
+    </form>
+      <div>
+             <a ui-sref='quotelist' class="btn btn-info">Cancel</a>
+             <button class="btn btn-info btn-save" ng-click="addQuote(1)">Save</button>
+             <button permission permission-only="['CSR']" class="btn btn-primary btn-sapprove" ng-click="addQuote(1)">Send For Approval</button>
+          </div>
+  </section>

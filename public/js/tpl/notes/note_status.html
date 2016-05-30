@@ -1,0 +1,32 @@
+ <!-- Notes Status popup form -->
+  <div id="NotesStatusWrapper"  class="modal fade notes-page" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Change Status</h4>
+          </div>
+          <div class="modal-body">
+              <form role="form" name="noteStatusForm"  id ="noteStatusForm" novalidate ng-submit='update(statusNote)' ng-controller="NotesController"  ng-class="{'submitted':submitted}" class="notes-change-status">
+                <div class="form-group" >
+                    <label name="subject">Status:</label>
+                    <div class="col-sm-5">
+                      <select name="status" id="status" ng-model="statusNote.statusvalue" class="form-control input-sml-box" required>
+                        <option value="">--Select--</option>
+                        <option value="Open">Open</option>
+                        <option value="Close">Close</option>
+                      </select>
+                      <span class="messages" ng-messages="noteStatusForm.status.$error"  ng-if="submitted">
+                         <span ng-message='required'>Please select status.</span>
+                      </span>
+                      </div>
+                      <div class="col-sm-4">
+                      <button type="submit" class="btn btn-info"  ng-click="submitted=true">Change</button>
+                      </div>
+                </div>
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>
+<!-- End of Notes Status popup form -->

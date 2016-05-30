@@ -1,0 +1,107 @@
+<footer id="footer" class="custom-collapse">
+	<div class="container-fluid">
+		<div class="container">
+		<!-- Frontend User Footer -->
+			<div class="row footer-sitemap">
+		        <div class="col-md-8">
+		          <div class="row">
+		            <div class="col-md-4">
+		            	<div class="panel panel-default support-section">
+                    <div class="panel-heading">
+				            	<h5 class="panel-title" data-target="#collapse-support" data-toggle= "collapse" resize>
+				            		<a class="accordion-toggle">
+				            			Support
+				            		</a>
+				            	</h5>
+										</div>
+									 	<div id="collapse-support" class="panel-collapse collapse">
+									   <div class="panel-body">
+				            	<ul class="list-unstyled">
+											  <li><a ng-href="#/help-center/">Help Center</a></li>
+											  <li><a ng-href="#/contact-us">Contact Us</a></li>
+											</ul>
+										</div>
+										</div>
+									</div>
+		            </div>
+		            <div class="col-md-4">
+		            	<div class="panel panel-default support-section">
+                    <div class="panel-heading">
+				            	<h5 class="panel-title" data-target="#collapse-about" data-toggle= "collapse" resize>
+				            		<a class="accordion-toggle">About Company</a>
+				            	</h5>
+										</div>
+									 	<div id="collapse-about" class="panel-collapse collapse">
+										<div class="panel-body">
+				            	<ul class="list-unstyled">
+											  <li><a ng-href="#/about-us">About Us</a></li>
+											  <li><a ng-href="#/partner-with-us">Partner with us</a></li>
+											</ul>
+		            		</div>
+		            		</div>
+		            	</div>
+		            </div>
+		            <div class="col-md-4">
+		            	<div class="panel panel-default support-section">
+                    <div class="panel-heading">
+				            	<h5 class="panel-title" data-target="#collapse-policy" data-toggle= "collapse" resize>
+				            		<a class="accordion-toggle">Policies</a>
+				            	</h5>
+										</div>
+									 	<div id="collapse-policy" class="panel-collapse collapse">
+										<div class="panel-body">
+				            	<ul class="list-unstyled">
+											  <li><a ng-href="#/terms-conditions">Terms & Conditions</a></li>
+											  <li><a ng-href="#/privacy-policy">Privacy</a></li>
+											</ul>
+		           			</div>
+		           		</div>
+		           	</div>
+		           </div>
+		          </div>
+		        </div>
+		        <div class="col-md-4">
+		        	<h5 class="social-heading">Let's Connect</h5>
+		        	<div class="social-media">
+		        	<ul class="list-inline">
+		                <li><a href="https://www.facebook.com/MyGharSeva" target="_blank" class="facebook"></a></li>
+		                <li><a href="https://twitter.com/ghar_seva" target="_blank" class="twitter"></a></li>
+		            </ul>
+		            </div>
+		            <div class="subscribe-section">
+		            	<form role="form" name="subscriptionForm" ng-controller="MGSCommonController" ng-submit="subscribe()" novalidate>
+						    <div class="form-group subscribe">
+						      <input type="email" class="form-control" name="email" id="email" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/" ng-model="subscription.email" placeholder="Email Address" required />
+						      <button class="btn btn-primary">Subscribe</button>
+						    </div>
+						    <span class="messages" ng-messages="subscriptionForm.email.$error" ng-if="submitted">
+                                <span ng-message='required'>Please enter email.</span>
+                                <span ng-message="pattern">Please enter valid email.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                             </span>
+						    
+               			 	<flash-message></flash-message>
+						 </form>
+		            </div>
+		        </div>
+		  </div>
+	</div>
+</footer>
+<!-- <footer id="admin-footer">
+	<div class="container-fluid">
+		<div class="container">
+		Admin Footer
+			<div class="row">
+			<div class="copyrigh text-center">
+			@MygharSeva 2016
+			</div>
+		 </div>
+		 </div>
+	</div>
+</footer> -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+</script>

@@ -1,0 +1,49 @@
+<!-- Reply message form -->
+<div id="NotesReply" class="modal fade notes-page" role="dialog" ng-controller='NotesController'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Reply to Note</h4>
+      </div>
+      <div class="modal-body">
+      <div class="note-history">
+          Posted: {{showCommonDate(replyNote.created_at,'dd/MM/yyyy HH:mm a')}} by {{replyNote.created_by}}  <span permission permission-only="['Admin', 'Master Admin', 'CSR']">Status: <b> {{replyNote.status}} </b></span>
+          <br/>
+          {{replyNote.message}}
+          <br /><br />
+      </div>
+
+        <div class="notes-form ">
+          <form role="form" name="NotesReplyForm" novalidate ng-submit='replyNotes(replyNote)' ng-class="{'submitted':submitted}">
+            <div class="form-group" permission permission-only="['Admin', 'Master Admin', 'CSR']">
+                  <label name="Note Type">Note Type:</label>
+                  <div class="notes-field" >
+                      <input type="radio" ng-model="reply.note_type" value='Internal' class="btn-radio">
+                      <span class="radio-title">Internal</span>
+                      <input type="radio" ng-model="reply.note_type" value='External' class="btn-radio">
+                      <span class="radio-title">External</span>
+                  </div>
+            </div>
+
+            <div class="form-group" >
+                    <label for="message">Reply:</label>
+                    <div class="notes-field">
+                        <p class="text-right">{{ 250 - reply.message.length + ' Char' }}</p>
+                        <textarea name="message" ng-model="reply.message" rows="5" name="message"  id="message" required placeholder='Comments' class="form-control" maxlength="250"></textarea>
+                        <span class="messages" ng-messages="NotesReplyForm.message.$error"  ng-if="submitted">
+                          <span ng-message='required'>Please add note.</span>
+                        </span>
+                    </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info pull-right" ng-click="submitted=true">Reply Note</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Reply message fomr -->
+

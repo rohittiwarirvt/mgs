@@ -1,0 +1,83 @@
+
+<section id="partner-section" class="static-pages"  ng-controller="MGSCommonController">
+    <div class="static-head">
+    <div class="container">
+        <div class="section-title">
+            <h1>Partner With Us</h1>
+        </div>
+        </div>
+    </div>
+<div class="container">
+<div class="dual-pane">
+<div class="col-md-3">
+		<div class="menu-pane" ng-include="'sidebar_template.html'">
+		</div>
+	</div>
+	<div class="col-md-9">
+	<p>We are a trusted brand. Partnering with us gives you access to be a part a
+     community who believes in bringing change to the household service industry. Please fill in your information below to get in touch with us.</p>
+
+     <form role="form" name="partnerForm" class="partner_form_field" ng-controller="PartnerController" ng-submit="save()" ng-class="{'submitted':submitted}" novalidate>
+                        <div class="cat_template_row" ng-if="successmessages">
+                            <div class="alert alert-success" role="alert">
+                            {{successmessages}}
+                            </div>
+                        </div>
+<div class="col-md-8">                      
+                      
+                        
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name *" ng-model="newpartner.name" required name="name" id="name">
+                                <span class="messages" ng-messages="partnerForm.name.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter name.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Phone Number *" ng-model="newpartner.phonenumber" ng-pattern="/^[0789]\d{9}$/" required name="phonenumber" id="phonenumber">
+                                <span class="messages" ng-messages="partnerForm.phonenumber.$error" ng-if="submitted">
+                                <span ng-message='required'>Please enter phone number.</span>
+                                <span ng-message="pattern">Please enter Valid phone number.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" ng-pattern="/^[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/" class="form-control" placeholder="Email *" ng-model="newpartner.email" required name="email" id="email">
+                                <span class="messages" ng-messages="partnerForm.email.$error" ng-if="submitted">
+                                <span ng-message='required'>Please enter email.</span>
+                                <span ng-message="pattern">Please enter valid email.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div> 
+
+                            <div class="form-group" ng-init="getServices()" >
+                            <select ng-model="newpartner.service_name" ng-options="option.service_name as option.service_name for option in services" class="form-control ng-pristine ng-valid ng-empty ng-touched" id="partner_service" required name="service_name">
+                                <option value="">
+                                    Select a Service *
+                                </option>
+                            </select>
+                             <span class="messages" ng-messages="partnerForm.service_name.$error" ng-if="submitted">
+                             <span ng-message='required'>Please select a Service </span>
+                             <span ng-messages-include="/js/tpl/messages.html"></span>
+                             </span> 
+                             </div>
+                          
+                            <div class="form-group">
+                                <textarea class="form-control" ng-model="newpartner.comment" required name="comment" id="comment" placeholder="Comments *"></textarea>
+                                <span class="messages" ng-messages="partnerForm.comment.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter comment.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-click="">Submit</button>&nbsp;&nbsp;
+                            <button type="reset" class="btn btn-info" ng-click="reset()">Reset</button>
+                          </form>
+                          
+
+</div>
+</div>
+</div>
+</div>
+</section>

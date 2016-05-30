@@ -1,0 +1,23 @@
+
+<div class="container" ng-controller="EmailController">
+	<h2>Email Templates</h2>
+	<h4>List of Email Templates:</h4>
+	<button class="btn btn-success pull-right " ng-click="addnew()">Add New Template</button>
+		<br><br>
+        <table class="table table-striped">
+			<tr>
+				
+				
+				<th>Subject</th>
+				<th>Email Body</th>
+			
+			</tr>
+            <tr ng-repeat='template in templates'>
+                
+                <td>{{template.subject }}</td>
+				<td>{{template.template_body }}</td>
+
+			</tr>
+                
+        </table>
+</div>

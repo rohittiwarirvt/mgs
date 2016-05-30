@@ -1,0 +1,49 @@
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="alert alert-danger" ng-if="loginError" role="alert">{{loginErrorText}}</div>
+    <div class="well">
+        <h3>Contact Form</h3>
+        <form role="form" name="contactForm" ng-controller="ContactController" novalidate>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Name" ng-model="newcontact.name" required name="name" id="name">
+                <p style="color:red" ng-show="contactForm.name.$error.required">Name is required.</p>
+            </div>
+
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" ng-model="newcontact.email" required name="email" id="email">
+                <p style="color:red" ng-show="contactForm.email.$error.required">Email is required.</p>
+                <p style="color:red" ng-show="contactForm.email.$error.email">Enter Valid Email.</p>
+            </div>
+            <div class="form-group">
+                <select name="service" class="form-control" id="service" ng-model="newcontact.service" required>
+                    <option value="">Select the type of request</option>
+                    <option>Enquire about something.</option>
+                    <option>Request for a new service</option>
+                    <option>Feedback on a job.</option>
+                </select>
+                <p style="color:red" ng-show="contactForm.service.$error.required">Service Type is required.</p>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" ng-model="newcontact.description" required name="description" id="description"></textarea>
+                <p style="color:red" ng-show="contactForm.description.$error.required">Description is required.</p>
+            </div>
+             <div class="form-group">
+                <input type="checkbox" name="copy_to_me" id="copy_to_me" ng-model="newcontact.copy_to_me" >Copy To Me
+            </div>
+
+            <div class="form-group">
+                <select name="status" class="form-control" id="status" ng-model="newcontact.status">
+                    <option value="">Select the status of request</option>
+                    <option value="open">Open</option>
+                    <option value="pending">Pending</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="inprogess">Inprogress</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" ng-click="save()" ng-disabled="userForm.$invalid">Submit</button>
+
+        </form>
+        <br/>
+       
+    </div>
+</div>

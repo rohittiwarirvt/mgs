@@ -1,0 +1,265 @@
+/* Admin Quote CSS */
+/* Quote Queue */
+.admin-section {
+  background: #f4f4f4;
+  border-top: 1px solid #ccc;
+  font-family: 'arial';
+}
+a.btn-back.dl {
+  margin: 10px 0px 20px;
+  color: #333;
+  text-decoration: underline;
+}
+.quote-q-page .section-heading h5 {
+  margin: 20px 0px 10px;
+}
+.admin-section .section-area {
+  margin-bottom: 0;
+}
+.search-widget label {
+  margin: 0px 8px;
+}
+.search-widget .form-group .form-control,
+.table-list,
+.search-widget label,
+.admin-section .form-group .form-control {
+  font-size: 13px;
+}
+fieldset.material-box input {
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.admin-section .quick-form .btn-quick {
+  margin-left: 7px;
+  margin-top: -3px;
+}
+.admin-section .btn-info,
+.admin-section .btn-primary {
+  text-transform: uppercase;
+}
+.admin-section .btn-info.btn-save {
+  padding: 5px 20px;
+}
+.admin-section .btn-primary.btn-buy {
+  padding: 5px 30px;
+  color: #333;
+}
+.admin-section .btn-info,
+.admin-section .btn-primary.btn-sapprove {
+  padding: 5px 12px;
+  margin: 0px 20px 10px 0px;
+}
+.admin-section .btn-primary.btn-sapprove {
+  margin-right: 0;
+}
+.quick-form input {
+  width: 35%;
+}
+.form-inline .form-group {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.adv-form.form-inline label {
+  margin: 0px 10px;
+}
+#queue-list {
+  margin-top: 10px;
+}
+.table-list {
+  border-radius: 5px;
+}
+.table-list label {
+  margin-bottom: 0px;
+}
+.table-list thead {
+  background-color: #d6d6d6;
+}
+.table-list tbody {
+    border: 1px solid #d6d6d6;
+    background: #fff;
+}
+.table-list th:first-child {
+  border-top-left-radius: 10px;
+}
+.table-list th:last-child {
+  border-top-right-radius: 10px;
+}
+.col-md-8.assign-widegt {
+  padding-left: 0px;
+}
+.search-widget.assign-widegt label {
+  margin-left: 0;
+}
+#admin-footer {
+  background: #f2f2f2;
+  padding-top: 28px;
+  padding-bottom: 20px;
+}
+/* Admin Quote Detail Page */
+.quote-detail-page.admin-section,
+ .add-quote-page.admin-section {
+  padding-top: 10px;
+}
+.quote-detail-page.admin-section .section-heading,
+.add-quote-page.admin-section .section-heading {
+  margin-bottom: 20px;
+}
+.queue-content {
+  padding-top: 20px;
+}
+input.material {
+    margin-right: 10px;
+    display: block;
+}
+fieldset.material-box {
+    margin-bottom: 10px;
+    position: relative;
+}
+.quote-detail-page .form-control.discount-input,
+.add-quote-page .form-control.discount-input {
+  width: 50%;
+  margin-left: 10px;
+}
+.quote-status-display {
+  color: #ED9116;
+}
+.quote-detail-page .form-group input[type=text],
+.add-quote-page  .form-group input[type=text] {
+  padding: 4px 6px;
+}
+/*.quote-detail-page .form-group {
+  overflow: hidden;
+}*/
+.quote-detail-page .form-control,
+.add-quote-page .form-control {
+  width: 85%;
+  background: transparent;
+}
+.container .get-cust-info {
+  font-size: 12px;
+  padding: 4px 8px;
+  margin: -4px 0 0;
+}
+.subservices .dropdown-menu {
+    position: relative;
+}
+label.rupess-label {
+    float: left;
+    padding: 5px 11px 0px 0px;
+}
+#service-rate-details .col-sm-8 {
+  padding: 0;
+}
+.edit-link {
+  font-weight: normal;
+}
+button.remove.btn.btn-info {
+  position: absolute;
+  bottom: -3em;
+  left: 10em;
+}
+/* Notes Section */
+.notes-page .modal-header {
+    padding: 10px 15px;
+    border-bottom: 0;
+    background-color: #dedede;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.notes-page label {
+  float: left;
+  width: 6em;
+  font-weight: normal;
+}
+.notes-page .input-lg-box.form-control {
+  width: 180px;
+}
+.notes-page textarea.form-control {
+  width: 96%;
+  resize: none;
+}
+.notes-field {
+  overflow: hidden;
+}
+#NotesStatusWrapper .modal-dialog {
+  width: 350px;
+}
+#NotesStatusWrapper label {
+  width: 4em;
+}
+.form-control.input-sml-box {
+  width: 90px;
+}
+.notes-change-status .col-sm-5 {
+  padding: 0;
+}
+.notes-history .container.divider {
+  padding-top: 10px;
+}
+.posted-data {
+    margin-bottom: 15px;
+}
+.reply-message {
+    padding-left: 40px;
+}
+#NotesFormWrapper .select_note_type {
+  margin-left:7.5em;
+  font-size:smaller;
+  margin-top:2px;
+  color:red;
+}
+.admin-section .service-charges-details .form-group input {
+/*    width: 100%;*/
+}
+#service-rate-details .form-group select {
+  padding: 4px 5px;
+  height: 30px;
+}
+#service-rate-details .form-group input[type=number],
+#service-rate-details .form-control {
+  height: 30px;
+}
+.service-charges-details .header {
+    font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.admin-section .service-charges-details input[name=sr-charge] {
+  width: 100%;
+}
+.specification-unit.col-sm-2 {
+    margin-left: 0px;
+}
+.col-sm-4.no-padding-left.sr-charge.sr-charge-price {
+  width: 30%;
+}
+.col-sm-2.no-padding-left.sr-charge.sr-charge-qty {
+/*    width: 20%;*/
+    padding-right: 0;
+}
+.sr-charge-unit select.form-control.input-md-box {
+  width: 100%;
+}
+.admin-section .service-charges-details .other-charges  input {
+  width: 75%;
+  display: inline-block;
+}
+
+.admin-section  .final-price {
+    border-top: 1px solid #ccc;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+.forgot-password{
+  width: 55%; 
+  margin: 0 auto 8px; 
+}

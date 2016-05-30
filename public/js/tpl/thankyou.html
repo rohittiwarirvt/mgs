@@ -1,0 +1,56 @@
+<div class="thanku-section" ng-init='products()'>
+  <section id="thanku" class="full-width">
+        <flash-message></flash-message>
+    <div class="container">
+  	<div class="row">
+      <div class="hightlight">
+        <h2>Thank you</h2>
+      </div>
+      <p> for booking {{serviceName|capitalize}} service.</p>
+      <p ng-if='isAuthenticated()'>
+        <a ui-sref="MyService"> click here</a> to check your quotes status
+      </p>
+              <form name="thankslogin" novalidate ng-submit="loginSubmit()" ng-class="{'submitted':submitted}" class="thanku-form">
+      <div ng-if='!isAuthenticated()'>
+      <p> {{contextualText}}</p>
+
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="login.username" name="username" required minlength="5" placeholder="Username" readonly />
+          <span class="messages" ng-messages="thankslogin.username.$error" ng-if="submitted" >
+            <span ng-message='required'>Please enter User Name.</span>
+            <span ng-messages-include="/js/tpl/messages.html"></span>
+          </span>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" ng-model="login.password" name="password" minlength="3" required>
+          <span class="messages" ng-messages="thankslogin.password.$error"  ng-if="submitted">
+            <span ng-message='required'>Please enter password.</span>
+            <span ng-messages-include="/js/tpl/messages.html"></span>
+          </span>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" name="termsnconditions" ng-model="login.termsnconditions" ng-required="true"/> I have read & agree with <a ui-sref="term-condition" target="_blank">Terms & Conditions</a><br>
+          <span class="messages" ng-messages="thankslogin.termsnconditions.$error" ng-if="submitted">
+          <span ng-message='required'>Please agree to the Terms and Conditions.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+          </span>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info" >{{buttonText}}</button>
+          <span ng-if='showForGot' ng-controller="MGSCommonController">
+            <a class="forgot" ng-click="openforgot()">Forgot Password?</a>
+          </span>
+        </div>
+
+      </div>
+              </form>
+  	</div>
+    </div>
+  </section>
+  <script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion_async.js" charset="utf-8"></script>
+  <noscript>
+    <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/930654137/?label=y78ACOKdkGYQuc_iuwM&amp;guid=ON&amp;script=0"/>
+    </div>
+  </noscript>
+</div>

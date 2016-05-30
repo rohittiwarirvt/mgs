@@ -1,0 +1,55 @@
+<div class="main-content">
+    <div id="container-fluid" >
+      <div class="row">
+        <div class="col-lg-12  notes-listing">
+          <div class="col-sm-4"><h1 class="page-header">Notes Listing</h1></div>
+          <div style="clear:both"></div>
+          <div class="display-count">
+              <label>Show: </label>
+              <select >
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+          </div>
+          <div ng-init="getNotes();" class="dt-space-table"> 
+            <table class="table table-striped  all-document-table notes-listing-table" id="sample_2">
+              <thead>
+                <tr class="hidden-xs">
+                  <th width="5%" class=""><label>Number</label></th>
+                  <th width="5%" class=""><label>Quote ID</label></th>
+                  <th width="12%" class=""><label>Created For</label></th>
+                  <th width="12%" class=""><label>Created By</label></th>
+                  <th width="15%" class=""><label>Created On</label></th>
+                  <th class=""><label>Message</label></th>
+                  <th width="7%" class=""><label>Note Type</label></th>
+                  <th width="10%" class=""><label>Change Status</label></th>
+                  <th width="10%" class=""><label>Comment</label></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr ng-repeat='note in notes'>
+                    <td class="">{{$index+1}}</td>
+                    <td class="">{{note.quote_id}}</td>
+                    <td class="">{{note.created_for}}</td>
+                    <td class="">{{note.created_by}}</td>
+                    <td class="">{{note.created_at}}</td>
+                    <td class=""><a title="Click here to view Notes" href="#/notes/view/{{note._id}}" >{{note.message}}</a></td>
+                    <td class="">{{note.note_type}}</td>
+                    <td class=""><a href="javascript:void(0)" class="replylink" data-toggle="modal"  ng-click="changeStatus(note)" data-target="#NotesStatusWrapper" >Change Status</a></td>
+                    <td class=""><a href="javascript:void(0)" class="rightlink" data-toggle="modal"  ng-click="sendReply(note)" data-target="#NotesReply" >Reply</a></td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<!-- Add reply note form -->
+<div ng-include="'js/tpl/notes/reply_notes.html'"></div>
+
+<!--  note status  form -->
+<div ng-include="'js/tpl/notes/note_status.html'"></div>

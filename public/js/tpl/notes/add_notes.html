@@ -1,0 +1,74 @@
+ <!-- New Notes popup form -->
+  <div id="NotesFormWrapper"  class="modal fade notes-page" role="dialog" ng-controller="NotesController">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h5 class="modal-title">New Note<span ng-if="quoteReject=='reject'">:Reject</span></h5>
+          </div>
+          <div class="modal-body">
+            <div class="notes-form">
+              <form role="form" name="notesForm"  id ="notesForm" novalidate ng-submit='save(quoteReject) 'ng-controller="NotesController"  ng-class="{'submitted':submitted}" > 
+ 
+                <div class="form-group"  permission permission-only="['Admin', 'Master Admin', 'CSR']">
+                    <label name="subject">Note Type:</label>
+                    <div class="notes-field" >
+                        <input type="radio" ng-model="noteAdd.note_type" value='Internal' class="btn-radio" class="form-control" required>
+                        <span class="radio-title">Internal</span> 
+                        <input type="radio" ng-change="ShowConfirm()" ng-model="noteAdd.note_type" value='External' class="btn-radio" class="form-control" required>
+                        <span class="radio-title">External</span> 
+                    </div> 
+                    <div class="select_note_type" ng-show="submitted && !noteAdd.note_type">
+                     <span> Please select a note type.</span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-init='getDepartments()'  permission permission-only="['Admin', 'Master Admin', 'CSR']">
+                    <label for="Assign To">Assign To:</label>
+                    <div class="notes-field">
+                        <select ng-model="noteAdd.assign_to" name='assign_to' id='assign_to' class="form-control input-lg-box" required>
+                            <option value=''>Select</option>
+                            <option  ng-repeat='key in dept' value="{{key.id}}">{{key.title}}</option>
+                        </select>
+                        <span class="messages" ng-messages="notesForm.assign_to.$error"  ng-if="submitted">
+                          <span ng-message='required'>Please select department.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-init='getSubjects()' ng-if="quoteReject!='reject'">
+                    <label for="subject">Subject:</label>
+                    <div class="notes-field">
+                        <select ng-model="noteAdd.subject" name='subject' id='subject' placeholder='subject' class="form-control input-lg-box" required>
+                            <option value=''>Select</option>
+                            <option  ng-repeat='key in subject' value="{{key.id}}">{{key.title}}</option>
+                        </select>
+                      <span class="messages" ng-messages="notesForm.subject.$error"  ng-if="submitted">
+                        <span ng-message='required'>Please select subject.</span>
+                      </span>
+                    </div>
+                </div>
+
+                <div class="form-group" >
+                    <label for="message">Note:</label>
+                    <div class="notes-field">
+                        <p class="text-right">{{ 250 - noteAdd.message.length + ' Char' }}</p>
+                        <textarea name="message" ng-model="noteAdd.message" rows="5" name="message"  id="message" required placeholder='Additional notes' class="form-control" maxlength="250"></textarea>
+                        <span class="messages" ng-messages="notesForm.message.$error" ng-if="submitted">
+                          <span ng-message='required'>Please add note.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info pull-right"  ng-click="submitted=true">New Note</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- End Main Content -->
+
+

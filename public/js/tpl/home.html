@@ -1,0 +1,155 @@
+<section id="slider-wrapper" class="full-width">
+	<div class="container-fluid">
+	<div ng-app="userApp">
+		<div ng-controller="ImageSlideController">
+		  <div>
+		    <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+		      <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+		        <img ng-src="{{slide.image}}" style="margin:auto;">
+		        <div class="carousel-caption">
+
+		          <p class="slide-tagline"  ng-bind-html="slide.text | htmlfilter"></p>
+		          <span class="slide-subtitile">{{slide.subtitle}}</span>
+		        </div>
+		      </uib-slide>
+		    </uib-carousel>
+		  </div>
+		</div>
+	</div>
+	</div>
+</section>
+<div ng-include class="slider-widget" src="'/js/tpl/slider.html'"></div>
+<div class="home-page text-center">
+<!-- Services Section -->
+	<section id="home-service-wrapper" class="services full-width section-area" ng-controller ='MGSCommonController' ng-init="getServices()" >
+	    <div class="container" ng-controller="MGSCommonController">
+	        <div class="section-heading">
+	            <h2>Services</h2>
+	        </div>
+            <div class ="row">
+				<div ng-repeat="service in services  | limitTo: itemsLimit()">
+					<div class="col-xs-6 col-sm-3">
+						<div class="service-box" mgs-trackevent>
+
+							<a ui-sref="service({serviceName: service.service_url})"><img ng-src="{{service.file_uri}}"></a>
+							<a ui-sref="service({serviceName: service.service_url})"><h4>{{service.service_name}}</h4></a>
+						</div>
+					</div>
+				</div>
+		    </div>
+				<div class="btn-more"><button ng-show="hasMoreItemsToShow()" ng-click="showMoreItems()" class="btn btn-info visible-xs">See More</button></div>
+		</div>  <!-- end of container -->
+	</section>  <!-- end of section -->
+
+<!-- How It Works Section -->
+	<section id="works-wrapper" class="full-width">
+	    <div class="container">
+	        <div class="section-heading">
+	            <h2>Booking Service is Easy as 1-2-3</h2>
+	        </div>
+			<div class="row">
+		        <div class="col-sm-4">
+		        	<div class="easy-steps-section">
+		        		<span class="steps-num">1</span>
+		        		<span class="steps-text num-1">
+		        		<h3>Submit</h3>
+		        		the enquiry Form</span>
+		        	</div>
+		        </div>
+		        <div class="col-sm-4 expert-step">
+		        	<div class="easy-steps-section">
+		        		<span class="steps-num">2</span>
+		        		<span class="steps-text">
+		        		<h3>Verified Expert</h3>will come & complete <br>the service</span>
+		        	</div>
+		       	</div>
+		        <div class="col-sm-4">
+		        	<div class="easy-steps-section">
+		        		<span class="steps-num">3</span>
+		        		<span class="steps-text">
+		        		<h3>Relax</h3>
+		        		at home & enjoy <br>the service</span>
+		        	</div>
+		        </div>
+		     </div>
+	    </div>
+	</section>
+<!-- Why Us Section -->
+	<section id="why-us-wrapper" class="full-width">
+	    <div class="container">
+	        <div class="section-heading">
+	            <h2>What Sets Us Apart</h2>
+	        </div>
+			<div class="row whyus-section">
+		        <div class="col-xs-6 col-sm-3">
+		          <div class="trusted-info">
+		          	<span class="trusted-ico"></span>
+		          	<h4>Trusted Experts</h4>
+		          	<span>Our professionals are experienced, verified, background-checked, and insured</span>
+		          </div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3">
+		          <div class="assured-info">
+		          	<span class="assured-ico"></span>
+		          	<h4>Assured Friendly Service</h4>
+		          	<span>We are considered to be generous in providing friendly services to customers</span>
+		          </div>
+		        </div>
+		        <div class="clearfix visible-xs"></div>
+		        <div class="col-xs-6 col-sm-3">
+		          <div class="reasonable-info">
+		          	<span class="reasonable-ico"></span>
+		          	<h4>Reasonable Pricing</h4>
+		          	<span>We deliver quality services at reasonable & affordable cost to customers</span>
+		          </div>
+		        </div>
+		        <div class="col-xs-6 col-sm-3">
+		          <div class="onecall-info">
+		          	<span class="onecall-ico"></span>
+		          	<h4>One Call, We Do it All!</h4>
+		          	<span>Our professionals makes it convenient  to call handy experts on customers demand</span>
+		          </div>
+		        </div>
+			</div>
+	    </div>
+	</section>
+<!-- Testimonial's Section -->
+<section id="testimonial-wrapper" class="section-area hidden-xs">
+	    <div class="container">
+	        <div class="section-heading">
+	            <h2>Customer High Fives</h2>
+	        </div>
+          <div class="row testimonials" ng-controller="TestimonialController" ng-init="gettestimonial()">
+				    <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+				      <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+		                    <div class="row testimonials">
+		               <div class="col-xs-6">
+			               <div class="testimonials-block">
+				                 <span class="testimonials-content">{{slide.description}}</span>
+				                 <span class="testimonials-author">{{slide.authorname}}</span>
+			               </div>
+		               </div>
+		               <div class="col-xs-6">
+		                  <div class="testimonials-block">
+			                   <span class="testimonials-content" >{{slide.description1}}</span>
+			                   <span class="testimonials-author">{{slide.authorname1}}</span>
+		                   </div>
+		               </div>
+				        </div>
+				      </uib-slide>
+				    </uib-carousel>
+          </div>
+	    </div>
+	</section>
+</div>
+ <script type="text/javascript">
+        window.$zopim || (function (d, s) {
+            var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+            d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+                z.set.
+                _.push(o)
+            }; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+            $.src = "//v2.zopim.com/?3UL54S5lBfM7CU33ugjohmh0YGnMamMg"; z.t = +new Date; $.
+            type = "text/javascript"; e.parentNode.insertBefore($, e)
+        })(document, "script");
+ </script>

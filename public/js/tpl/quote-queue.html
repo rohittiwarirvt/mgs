@@ -1,0 +1,209 @@
+<div class="quote-q-page admin-section">
+<!-- Quick Search Section -->
+  <section id="quick-search" class="quick-search section-area text-center">
+      <div class="container">
+        <div class="section-heading">
+          <h5 class="text-uppercase"><strong>Quick Search</strong></h5>
+        </div>
+        <div class="row">
+          <div class="quick-form search-widget">
+          <form role="form" name="quoteQuickSearch" id="quoteQuickSearch" ng-submit="getQuotes(quote)"novalidate ng-class="{'submitted':submitted}" >
+            <div class="form-group">
+              <label class="search-label control-label">Search By: </label>
+              <select name="search_by" id="search_by" ng-model="quote.search_by" required>
+                        <option value="">Select</option>
+                        <option value="first_name">Customer Name</option>
+                        <option value="phonenumber">Mobile</option>
+                        <option value="email">Email</option>
+                        <option value="quote_id">Quote ID</option>
+              </select>
+              <span class="messages" ng-messages="quoteQuickSearch.search_by.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please select search type.</span>
+              </span>
+              <input type="text" name="search_for" id="search_for" ng-model="quote.search_for" class="form-control search-box inline-block" placeholder="" required>
+              <span class="messages" ng-messages="quoteQuickSearch.search_for.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter value.</span>
+                    <span class="error" ng-show="quoteQuickSearch.input.$error.email">Please enter a valid email.</span>
+              </span>
+              <button class="btn btn-info btn-quick"  ng-click="submitted=true"  >Submit</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+  </section>
+<!-- End Quick Search-->
+<!-- Advanced Search Section -->
+  <section id="adv-search" class="adv-search section-area text-center" ng-controller ='MGSCommonController'>
+      <div class="container divider">
+        <div class="section-heading">
+          <h5 class="text-uppercase"><strong>Advanced Search</strong></h5>
+        </div>
+        <div class="row">
+          <div class="adv-form search-widget form-inline">
+            <form role="form" name="quoteAdvacncedSearch" id="quoteAdvacncedSearch" ng-submit="getQuotes(quote)" novalidate ng-class="{'submitted':submitted}" >
+                <div class="form-group">
+                   <label for="quote_note">Search for:</label>
+                 <select name="search_date" id="search_date" ng-model="quote.search_date" class="form-control" ng-required="!quote.fromDate && quote.toDate || quote.fromDate && !quote.toDate || quote.fromDate && quote.toDate">
+                        <option value="">Select</option>
+                        <option value="created_at">Quote Date</option>
+                        <option value="appointment_date">Appointment Date</option>
+                  </select>
+                  <span class="messages" ng-messages="quoteAdvacncedSearch.search_date.$error"  ng-if="submitted">
+                          <span ng-message='required'>Please enter Type of Search.</span>
+                          <span ng-messages-include="/js/tpl/messages.html"></span>
+                        </span>
+                </div>
+
+                <div class="form-group">
+                  <label>Date: &nbsp; From</label>
+                      <p class="input-group">
+                        <input class="form-control" type="text"
+                        class="form-control" uib-datepicker-popup   ng-model="quote.fromDate"   close-text="Close"  is-open="fromdatepicker.opened" popup-placement="bottom-left left-bottom"/ name="fromDate" ng-required="quote.search_date && !quote.toDate || !quote.search_date && quote.toDate || quote.search_date && quote.toDate">
+                        <span class="messages" ng-messages="quoteAdvacncedSearch.fromDate.$error"  ng-if="submitted">
+                          <span ng-message='required'>Please enter From date.</span>
+                          <span ng-messages-include="/js/tpl/messages.html"></span>
+                        </span>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-datetime" ng-click="openFromDate()">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                          </span>
+                      </p>
+                </div>
+
+                <div class="form-group">
+                  <label>To</label>
+                      <p class="input-group">
+                        <input class="form-control" type="text"
+                      class="form-control" uib-datepicker-popup   ng-model="quote.toDate"  close-text="Close"  is-open="todatepicker.opened" popup-placement="bottom-left left-bottom"/ name="toDate" ng-required="!quote.search_date && quote.fromDate || quote.search_date && !quote.fromDate || quote.search_date && quote.fromDate">
+                        <span class="messages" ng-messages="quoteAdvacncedSearch.toDate.$error"  ng-if="submitted">
+                          <span ng-message='required'>Please enter To date.</span>
+                          <span ng-messages-include="/js/tpl/messages.html"></span>
+                        </span>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-datetime" ng-click="openToDate()">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                          </span>
+                      </p>
+                </div>
+
+                <div class="form-group">
+                   <label for="quote_note">Note:</label>
+					       <select name="note_status" id="note_status" ng-model="quote.note_status" class="form-control" >
+                        <option value="">Select</option>
+                        <option value="Open">Open</option>
+                        <option value="Close">Close</option>
+                  </select>
+                </div>
+
+                <div class="form-group" ng-init="getStatus()">
+                   <label for="quote_status">Status:</label>
+                  <select ng-model="quote.status_id" name='status_id' id='status_id' >
+                    <option value=''>Select</option>
+                    <option  ng-repeat='key in status' value="{{key.id}}">{{key.status_internal_name}}</option>
+                 </select>
+                </div>
+
+                <div class="form-group"  ng-init="getServices()">
+                   <label for="quote_sr_type">Service Type:</label>
+                   <select id="service_type" name="service_type" ng-model="quote.service_type" >
+                    	<option value=''>Select a Service</option>
+                     	<option ng-repeat="service in services" value='{{service.id}}'>{{service.service_name}}</option>
+                     </select>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" value="submit" class="btn btn-info" ng-click="submitted=true">SUBMIT</button>
+                  <button type="reset" value="reset" class="btn btn-info" ng-click="getQuotes();">RESET</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </section>
+<!-- End Advanced Search-->
+<!-- Quote Queue List Section -->
+  <section id="queue-list" class="section-area" ng-init="getQuotes()">
+    <form  name="quoteCSR" id="quoteCSR"  ng-submit="assignCSR(quotequeue)" novalidate ng-class="{'submitted':submitted}"  >
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 quote-content">
+            <!-- Table list -->
+              <div class="list-view" >
+                <table class="table table-list" id="sample_2"  >
+                  <thead>
+                 <tr>
+                    <th>Select</th>
+                    <th class="id" custom-sort order="'id'" sort="sort">Quote ID</label></th>
+                    <th><label>Customer Name</label></th>
+                    <th><label>Phone Number</label></th>
+                    <th><label>Email</label></th>
+                    <th><label>Service Type</label></th>
+                    <th><label>Quote Date</label></th>
+                    <th><label>Appointment Date</label></th>
+                    <th class="text-center"><label>Status</label></th>
+                    <th class="text-center"><label>Notes</label></th>
+                    <th class="text-center"><label>CSR Name</label></th>
+                 </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-if="quotes.length == 0">
+                    <td colspan="11">
+                      <h5> No records found.</h5>
+                    </td>
+                  </tr>
+                    <tr ng-repeat="quote in quotes.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="quotes.length > 0">
+                    <td><input ng-checked="quote.selected" type="checkbox" name="quotecheck"  id="quotecheck"  ng-model="quote.selected"  ng-true-value ="{{quote.id}}" >
+                    </td>
+                    <td at-implicit at-sortable at-attribute="quote.id"><a ng-href="#/config/quotedetails/{{quote.id}}" >{{quote.id}}</a></td>
+				            <td>{{quote.user_information.first_name | capitalize }}</td>
+                    <td>{{quote.user_information.phonenumber}}</td>
+                    <td>{{quote.user_information.email}}</td>
+				            <td>{{quote.service_name}}</td>
+				            <td >{{quote.created_at | date: 'yyyy-MM-dd'}}</td>
+				            <td >{{quote.appointment_date | date: 'yyyy-MM-dd' }}</td>
+				            <td class="text-center">{{quote.status.internal}}</td>
+				            <td class="text-center"><a ng-href="#/config/quotedetails/{{quote.id}}" >{{quote.notes.status}}</a></td>
+				            <td class="text-center">{{quote.csr.first_name | capitalize}}<span ng-if="!quote.csr.first_name">--</span></td>
+			        </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- End table list -->
+        </div>
+        </div>
+        <div>
+            <!-- Assign to -->
+            <div class="col-md-6 assign-widegt search-widget">
+              <div class="form-group" ng-controller="AdminUserController" ng-init="getUsers(11)">
+              <label class="form-label">Assign to:</label>
+                  <select name='assign_to' id='assign_to' name="user_id" id="user_id" ng-model="quotecsr.user_id">
+                    <option value=''>CSR Name</option>
+                    <option  ng-repeat='key in users' value="{{key.id}}">{{key.first_name | capitalize}}</option>
+                  </select>
+              <!-- <button class="btn btn-info">Assign</button> -->
+               <button type="submit" class="btn btn-primary btn-large" ng-click="save(quotecsr)" ng-disabled="!quotecsr.user_id">Assign</button> 
+              <button class="btn btn-info" ng-click="save(quotecsr, user_id)">Assign To Me</button>
+              <div class="submitted"><span class="messages" ng-if="quotecsr.quotes==''"> Please select quote from list.</span></div>
+                </div>
+            </div>
+            <!-- End Assign to -->
+
+            <!-- Pagination start -->
+            <div class="col-md-6">
+            <div class="quote-pagination">
+              <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+              <div class="show-quote-status">
+                <label>Show: </label>
+                <select data-ng-model="viewby" data-ng-options="v as k for (k, v) in numitems" ng-change="setItemsPerPage(viewby)"></select>
+             </div>
+            </div>
+            </div>
+            <!-- pagination end -->
+        </div>
+      </div>
+    </form>
+  </section>
+<!-- End Quote Queue List Section -->

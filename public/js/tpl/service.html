@@ -1,0 +1,168 @@
+<div class="service-section {{pdpClass}}" ng-init='products()'>
+
+    <!-- Hero Image Section -->
+    <section id="service-hero-img" class="full-width">
+        <div class="container-fluid" ng-init="serviceImage()">
+        <div ng-repeat="heroimage in heroimages">
+            <p class="tagline slide-tagline">
+                <span class="dl container sr-tagline">{{heroimage.tag_line}}</span>
+            </p>
+            <img ng-src={{heroimage.file_uri}} />
+        </div>
+        </div>
+    </section>
+
+    <!-- End Hero Image Section -->
+    <!-- Service Book Section -->
+    <div ng-include class="slider-widget" src="'/js/tpl/slider.html'"></div>
+    <!-- End Service Book Section -->
+    <!-- PDP Quote Section -->
+    <section id="pdp-quote-section" class="mb-container">
+                <flash-message></flash-message>
+        <div class="container">
+
+            <div class="row">
+                <div class="quote-form-wrapper">
+                    <form name="quotation" novalidate ng-submit="getQuote()" ng-class="{'submitted':submitted}">
+                        <div class="col-md-5">
+                            <div class="quote-form-left">
+                                <div ng-if="servicenotselected" class="submitted" >
+                                    <p class="messages">Please Select Some Services.</p>
+                                </div>
+                                <div class="form-label">
+                                  Choose Your Service
+                                </div>
+                                <div class="form-widget">
+                                    <div class="form-group" ng-repeat="value in $products">
+                                        <span ng-show='false' ng-init="buildAttributes(value.product_name); makeSingleSelectionForProducts(value);"></span>
+                                        <div class="product-attr prod-id-{{value.id}}" ng-if="multipleAttributes[value.product_name]">
+                                            <label mgs-painting-valid class="product-name">{{value.product_name}}   </label>
+                                            <div ng-dropdown-multiselect=""   options="attributesModel[value.id]" selected-model="attributesPackageModel[value.id]" checkboxes="true" extra-settings="extrasettings[value.id]" translation-texts="translationtexts"> </div>
+                                             <div ng-show="toshowOptions"  class="child-dropdown">
+                                                <div ng-repeat="(optionkey, options) in  optionsToShow">
+
+                                                <label  class="option-name" ng-init='getAttributeLabel(optionkey)'>{{optionAttributeLabel[optionkey].attribute_name}}   </label>
+                                                    <div ng-dropdown-multiselect=""  options="options" selected-model="optionsPackageModel[optionkey]" checkboxes="true" extra-settings="optionsExtraSettings" translation-texts="optionsTranslationTexts[optionkey]" > </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="singleAttribute[value.product_name]">
+                                            <div class="attributes"><div class="column-left col-md-9"><label><input class="checkboxInput" type="checkbox" ng-checked="attributesPackageModel.indexOf(value.id) > -1"  ng-click="toggleSelection(value.id)" /> {{value.product_name}}</label></div> <div class="column-right col-md-3">{{value.price}}</div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-widget">
+                                    <div class="form-group" ng-repeat="value in $products">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="quote-form-right">
+                                <div class="form-label"> Appointment Details </div>
+                                <div class="form-widget">
+                                    <div class="col-md-7">
+                                        <div class="form-group appointment-name">
+                                            <input type="text" name="name" id="name" placeholder="Name *" maxlength="120" class="form-control" ng-required="true" ng-model="quote.name" >
+                                                <span class="messages" ng-messages="quotation.name.$error" ng-if="submitted" >
+                                                    <span ng-message='required'>Please enter Name.</span>
+                                                    <span ng-messages-include="/js/tpl/messages.html"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group appointment-phno">
+                                                <input type="text" name="phonenumber" placeholder="Phone *" class="form-control" ng-required="true" ng-pattern="/^[0789]\d{9}$/" ng-model="quote.phonenumber" >
+                                                    <span class="messages" ng-messages="quotation.phonenumber.$error" ng-if="submitted" >
+                                                        <span ng-message='required'>Please enter Valid phonenumber.</span>
+                                                        <span ng-message="pattern">Please enter Valid Phone Number.</span>
+                                                        <span ng-messages-include="/js/tpl/messages.html"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group appointment-email col-md-12 no-padding-left">
+                                                <input type="email" name="email" placeholder="Email *" class="form-control" ng-required="true"   ng-model="quote.email" ng-pattern="/^[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/">
+                                                    <span class="messages" ng-messages="quotation.email.$error" ng-if="submitted" >
+                                                        <span ng-message='required'>Please enter Valid Email.</span>
+                                                        <span ng-message="pattern">Please enter Valid Email.</span>
+                                                        <span ng-messages-include="/js/tpl/messages.html"></span>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-md-12 no-padding-left">
+                                                    <input type="text" name="address" placeholder="Service Address *" class="form-control" ng-required="true" ng-model="quote.address1">
+                                                    <span class="messages" ng-messages="quotation.address.$error" ng-if="submitted" >
+                                                        <span ng-message='required'>Please enter Service Address.</span>
+                                                        <span ng-messages-include="/js/tpl/messages.html"></span>
+                                                    </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" name="pincode" placeholder="Pincode *" class="form-control" ng-required="true" ng-model="quote.pincode" ng-pattern="/^[1-9][0-9]{5}$/">
+                                                           <span class="messages" ng-messages="quotation.pincode.$error" ng-if="submitted" >
+                                                        <span ng-message='required'>Please enter Pincode.</span>
+                                                        <span ng-message="pattern">Please enter Valid Pincode.</span>
+                                                        <span ng-messages-include="/js/tpl/messages.html"></span>
+                                                    </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="form-group">
+                                                                <p class="input-group">
+                                                                    <input class="form-control" type="text" class="form-control" uib-datepicker-popup   ng-model="appointmentDate" datepicker-options="dateOptions" ng-required="true"   is-open="datepicker.opened"  name="appointmentDate"/>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default btn-datetime" ng-click="openDate()">
+                                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                    <span class="messages" ng-messages="quotation.appointmentDate.$error" ng-if="submitted" >
+                                                                        <span ng-message='required'>Please enter Date.</span>
+                                                                        <span ng-messages-include="/js/tpl/messages.html"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <div class="service-time">
+                                                                        <timepicker-pop input-time="appointmentTime" class="input-group"
+                                                                            show-meridian='showMeridian'>
+                                                                        </timepicker-pop>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-12 no-padding-left special-div">
+                                                                <select name="instruction" class="form-control" id="instruction" ng-model="quote.specialInstructions" ng-options="option.text as option.name for option in noteOptions" placeholder="Select Subject">
+                                                                 <option value="">Special instructions</option>
+                                                                </select>
+                                                                    <div class="appointment-note">
+                                                                    <textarea class="form-control" id="instruction" rows="3" ng-model="quote.other"  placeholder="Special Instructions" ng-show="quote.specialInstructions==''"></textarea>
+                                                                    </div>
+                                                            </div>
+
+                                                            <div class="form-group no-padding-left btn-service-book">
+                                                                <div ng-if='showContinueAsGuest'>
+                                                                    <a class="continueasguest-click btn btn-info btn-quote" ng-click="openlogin();"  ng-controller="MGSCommonController" >Book Now</a>
+                                                                </div>
+                                                                <div ng-show='!showContinueAsGuest'>
+                                                                <button  id="pdp-submit" type="submit" class="btn btn-info btn-quote">Book Now</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section ng-include src="'/js/tpl/features.html'" class="mb-container"></section>
+                            <!-- End Features Section -->
+                            <!-- Testimonial Sectoin -->
+<!--                             <section ng-include src="'/js/tpl/testimonials.html'"></section> -->
+                            <!-- End Testimonial Section -->
+                            <!-- FAQs Sectoin -->
+                            <section ng-include src="'/js/tpl/faq.html'" class="hidden-xs"></section>
+                            <!-- End FAQs Section -->
+                        </div>

@@ -1,0 +1,264 @@
+<div class="quote-detail-page admin-section quote-view-page">
+<!-- Quick Search Section -->
+  <section id="quote-info" class="section-area" ng-init="quotedetails()">
+      <div class="container">
+        <div class="section-heading">
+        <h5><strong>Quote Id: {{quote.id}}</strong></h5>
+        <h5><strong>Quote Status: <span class="quote-status-display">{{quote.status.external}}</span></strong></h5>
+        </div>
+        <div class="row queue-content divider">
+          <div class="col-md-6 quote-view-left">
+          <!-- Customer Details Info -->
+          <div class="panel panel-default add-cust-info custom-collapse">
+            <div class="panel-heading">
+              <h5 class="panel-title" data-target="#customer-details" data-toggle= "collapse" resize>
+                Customer Details
+              </h5>
+            </div>
+            <div id="customer-details" class="panel-collapse collapse in" aria-expanded="true">
+                <div class="panel-body">
+                      <form role="form" name="customereDetail" class="form-horizontal cust-details" novalidate>
+                        <div class="form-group">
+                          <label class="col-sm-3">Customer Name:</label>
+                          <div class="col-sm-9">
+                            {{customer.name | capitalize}}
+                          </div>
+                        </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Phone:</label>
+                          <div class="col-sm-9">
+                            {{customer.phonenumber}}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Email:</label>
+                          <div class="col-sm-9">
+                            {{customer.email}}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Address:</label>
+                          <div class="col-sm-9">
+                            {{customer.address1 | capitalize}}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Pincode:</label>
+                          <div class="col-sm-9">
+                          {{customer.pincode}}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">State:</label>
+                          <div class="col-sm-9">
+                          MH
+                          </div>
+                      </div>
+                      <div class="form-group" ng-controller="MGSCommonController">
+                          <label class="col-sm-3">City:</label>
+                          <div class="col-sm-9">
+                          {{selectedCity.name}}
+                          </div>
+                      </div>
+                      </form>
+                </div>
+            </div>
+          </div>
+          <!--Service Details -->
+          <div class="panel panel-default add-service-info custom-collapse">
+            <div class="panel-heading">
+              <h5 class="panel-title"  data-target="#service-details" data-toggle= "collapse" resize>
+                Service Details
+              </h5>
+            </div>
+            <div id="service-details" class="panel-collapse collapse in" aria-expanded="true">
+                <div class="panel-body">
+                      <form role="form" name="ServiceDetail" class="form-horizontal sr-details" novalidate>
+                        <div class="form-group">
+                            <label class="col-sm-3">Service Date:</label>
+                          <div class="col-sm-9">
+                           {{showCommonDate(service.appointmentviewDate, 'dd/MM/yyyy')}}
+                          </div>
+                        </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Service Time:</label>
+                          <div class="col-sm-9">
+                          {{showCommonDate(service.appointmentviewTime, 'HH:mm a')}}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-3">Service Type:</label>
+                          <div class="col-sm-9">
+                           {{selectedService.service_name}}
+                          </div>
+                      </div>
+                       <div class="form-group subservices">
+                           <label class="col-sm-3">Sub-Services:</label>
+                           <div class="col-sm-9">
+                              <div class="form-widget">{{$products.product_name}}
+                                 <div class="form-group selected-services" ng-repeat="value in $products" >
+                                    <span ng-show='false' ng-init="buildAttributes(value.product_name)"></span>
+                                    <div ng-if="multipleAttributes[value.product_name]" class="col-sm-9">
+                                       <label ng-if="attributesPackageModel[value.id].length > 0"><b>{{value.product_name}}</b></label>
+                                       <div ng-repeat="attribute in attributesPackageModel[value.id]" class="selected-attribute">{{attribute.attribute_name}}</div>
+                                    </div>
+                                    <div ng-if="singleAttribute[value.product_name]">
+                                       <label ng-if="attributesPackageModel[value.id].length > 0">{{value.product_name}}</label>
+                                       <div ng-repeat="attribute in attributesPackageModel[value.id]">{{attribute.attribute_name}}</div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+          </div>
+          </div>
+          <div class="col-md-6 quote-view-right">
+          <!-- Service Charges -->
+          <div class="panel panel-default add-service-info">
+            <div class="panel-heading">
+              <h5 class="panel-title">
+                Service Charges
+              </h5>
+            </div>
+      <div class="form-horizontal sr-details">
+      <div id="service-rate-details" class="service-charges-details panel-collapse collapse in" aria-expanded="true">
+         <div class="panel-body">
+            <div class="header clearfix ">
+               <div class="specification-header col-sm-4">Services</div>
+               <div class="specification-price col-sm-5"> Price</div>
+               <div class="specification-quantity col-sm-3"> Quantity</div>
+            </div>
+            <div class="form-group" ng-repeat="(prod, prodValues) in serviceGroupBySpecs" >
+               <span class="prodlabel" >{{prod}}</span>
+               <div ng-repeat="(key, attributesValues) in prodValues">
+                  <div  class="attribute-level" ng-if="optionsNotPresent">
+                     <div class="grouper" ng-if='attributesValues.attribute.id'>
+                        <label  class="col-sm-4 no-padding-right">{{attributesValues.attribute.attribute_name}} : </label>
+                        <div class="col-sm-5 sr-charge sr-charge-price">
+                          <label ng-if="serviceGroupBySpecs[prod][key].attribute.price != 'Upon Inspection'" class="rupess-label">Rs.</label>
+                          <span class="sr-price">{{serviceGroupBySpecs[prod][key].attribute.price}}</span>
+                        </div>
+                        <div class="col-sm-3  sr-charge sr-charge-qty">
+                          {{serviceGroupBySpecs[prod][key].attribute.quantity}}
+                        </div>
+                     </div>
+                     <div class="grouper single-attribute" ng-if='!attributesValues.attribute.id'>
+                     <label class="col-sm-4 no-padding-right ng-binding">&nbsp;</label>
+                        <div class="col-sm-5 sr-charge sr-charge-price">
+                          <label ng-if="serviceGroupBySpecs[prod][key].product.price != 'Upon Inspection'" class="rupess-label">Rs.</label>
+                           <span class="sr-price">{{serviceGroupBySpecs[prod][key].product.price}}</span> <span ng-if="serviceGroupBySpecs[prod][key].attribute"> </span>
+                        </div>
+                        <div class="col-sm-3  sr-charge sr-charge-qty">
+                          {{serviceGroupBySpecs[prod][key].product.quantity}}
+                        </div>
+                     </div>
+                  </div>
+                  <div  class="attribute-level" ng-if="!optionsNotPresent">
+                     <label  class="col-sm-4 no-padding-right">{{attributesValues.option.option_name}} : </label>
+                     <div class="col-sm-5 sr-charge sr-charge-price">
+                          <label ng-if="serviceGroupBySpecs[prod][key].attribute.price != 'Upon Inspection'" class="rupess-label">Rs.</label>
+                        <span class="sr-price">{{serviceGroupBySpecs[prod][key].option.price}}</span>
+                     </div>
+                     <div class="col-sm-3 sr-charge sr-charge-qty">
+                        {{serviceGroupBySpecs[prod][key].option.quantity}}
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group other-charges clearfix" ng-if="quote.status_id==8">
+               <div class="grand-total clearfix">
+                <div class="header clearfix other-charges-calc">
+                  <div class="specification-header col-sm-5">Other Charges</div>
+                  <div class="specification-price col-sm-7 text-center"> Price</div>
+                 </div>
+                  <div class="additional-charges">
+                     <div class="price-without-discount clearfix" ng-if='priceWithoutDiscount'>
+                        <label class="col-sm-5">Actual Price:</label>
+                        <div class="text-center">{{priceWithoutDiscount}} </div>
+                     </div >
+                     <div class="total-discount clearfix" ng-if='totalDiscount'>
+                        <label class="col-sm-5">Discount:</label>
+                        <div class="text-center"> - {{totalDiscount}}</div>
+                     </div >
+                     <div class="labour-charges clearfix" ng-if='labourCharges'>
+                        <label class="col-sm-5">Labour Charges:</label>
+                        <div class="text-center"> + {{labourCharges}}</div>
+                     </div>
+                     <div class="material-charges clearfix" ng-if='materialCharges'>
+                        <label class="col-sm-5">Material Charges:</label>
+                        <div class="text-center"> + {{materialCharges}}</div>
+                     </div >
+                     <div class="vat clearfix" ng-if='VATCalc'>
+                        <label class="col-sm-5">VAT:</label>
+                        <div class="text-center">+ {{VATCalc}}  ( {{VAT}}% )</div>
+                     </div>
+                     <div class="servicetax clearfix" ng-if='serviceTaxCalc'>
+                        <label class="col-sm-5">Service Tax:</label>
+                        <div class="text-center">+ {{serviceTaxCalc}}  ( {{serviceTax}}% ) </div>
+                     </div>
+                  </div>
+                <div class="final-price clearfix">
+                    <label class="col-sm-4"><b>Grand Total:</b></label>
+                    <div class="text-center"><strong>Rs. {{quote.price | number : 2}}</strong></div>
+                </div>
+               </div>
+              </div>
+         </div>
+      </div>
+      </div>
+      </div>
+          <div class="pull-right btn-quote-view">
+             <a ng-controller="NotesController" ng-if="quote.status_id==8" ng-href="javascript:void(0)" class="btn btn-info" type="button" data-toggle="modal" data-target="#NotesFormWrapper" ng-click="setQuoteStatus('reject')">Reject</a>
+             <button ng-if="quote.status_id==8" class="btn btn-primary btn-buy" ng-click="updateQuote(11)" ng-disabled="quote.status_id==5">Buy</button>
+          </div>
+  </section>
+<!-- End Quick Search-->
+<!-- Notes History Section -->
+  <section id="notes-history" class="section-area" ng-controller="NotesController">
+      <div class="container divider">
+        <div class="section-heading">
+          <h5><strong class="notes-history-title">Notes History</strong>
+             <a ng-if="isAuthenticated()" ng-href="javascript:void(0)" class="btn btn-info btn-note pull-right" type="button" data-toggle="modal" data-target="#NotesFormWrapper" ng-click='setQuoteStatus()'>New Note</a>
+             <!-- Include note add form -->
+              <div ng-include="'js/tpl/notes/add_notes.html'"></div>
+          </h5>
+        </div>
+        <div class="row" ng-init="getNotes(quote_id)" >
+        <div class="" ng-if = "notes.length == 0">
+              <h5>No notes posted yet.</h5>
+        </div>
+          <div id="collapseOne" class="panel-collapse collapse in">
+             <div class="panel-body">
+                <div class="notes-block-content" ng-repeat='note in notes' >
+                  <div class="posted-data">
+                      <div id="parent-note" ng-if = "note.parent_id == 0 && note.note_type=='External'">
+                            <span class="posted-date">Posted: {{showCommonDate(note.created_at,'dd/MM/yyyy HH:mm a')}} by {{note.created_by}}</span>
+                            <div class="subject-message">
+                               <p>{{note.message}}</p>
+                            </div>
+                            <a ng-if="isAuthenticated()" href="javascript:void(0)" class="replylink" data-toggle="modal" ng-click='sendReply(note)' data-target="#NotesReply" >Reply</a>
+                            <div ng-include="'js/tpl/notes/reply_notes.html'"></div>
+                      </div>
+
+                       <div id="child-note"  ng-if = "note.parent_id != 0 && note.note_type=='External'">
+                            <span class="posted-date">Posted: {{showCommonDate(note.created_at,'dd/MM/yyyy HH:mm a')}} by {{note.created_by}}</span>
+                            <div class="subject-message">
+                                <p>{{note.message}}</p>
+                            </div>
+                            <a href="javascript:void(0)" class="replylink" data-toggle="modal" ng-click='sendReply(note)' data-target="#NotesReply" >Reply</a>
+                            <div ng-include="'js/tpl/notes/reply_notes.html'"></div>
+                      </div>
+                </div>
+              </div>
+             </div>
+          </div>
+        </div>
+      </div>
+  </section>
+<!-- End Notes History -->
+
+
+

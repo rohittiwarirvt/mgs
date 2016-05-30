@@ -1,0 +1,48 @@
+<div class="thanku-section">
+  <section id="thanku" class="full-width">
+    <div class="container">
+    <div class="row">
+      <div class="hightlight">
+        <h2>Thank you</h2>
+      </div>
+      <p> for buying {{serviceName|capitalize}} service.</p>
+      <p ng-if='isAuthenticated()'>
+        <a ui-sref="UserProfile"> click here</a> to check your quotes status
+      </p>
+      <div ng-if='!isAuthenticated()'>
+      <p> {{contextualText}}</p>
+        <form name="thankslogin" novalidate ng-submit="loginSubmit()" ng-class="{'submitted':submitted}" class="thanku-form">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="login.username" name="username" required minlength="5" placeholder="Username" readonly />
+          <span class="messages" ng-messages="thankslogin.username.$error" ng-if="submitted" >
+            <span ng-message='required'>Please enter User Name.</span>
+            <span ng-messages-include="/js/tpl/messages.html"></span>
+          </span>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" ng-model="login.password" name="password" minlength="3" required>
+          <span class="messages" ng-messages="thankslogin.password.$error"  ng-if="submitted">
+            <span ng-message='required'>Please enter password.</span>
+            <span ng-messages-include="/js/tpl/messages.html"></span>
+          </span>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" name="termsnconditions" ng-model="login.termsnconditions" ng-required="true"/> I have read & agree with <a ui-sref="term-condition" target="_blank">Terms & Conditions</a><br>
+          <span class="messages" ng-messages="thankslogin.termsnconditions.$error" ng-if="submitted">
+          <span ng-message='required'>Please agree to the Terms and Conditions.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+          </span>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info" >{{buttonText}}</button>
+          <span ng-if='showForGot' ng-controller="MGSCommonController">
+            <a class="forgot" ng-click="openforgot()">Forgot Password?</a>
+          </span>
+        </div>
+        </form>
+      </div>
+    </div>
+    </div>
+  </section>
+  </div>
+

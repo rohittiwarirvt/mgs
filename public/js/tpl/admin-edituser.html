@@ -1,0 +1,113 @@
+
+<div class="col-sm-4 col-sm-offset-4">
+  <div class="well">
+        <h3>Edit User</h3>
+       <form name="userEdit" novalidate ng-submit="updateUser()" ng-init="editUser()" ng-class="{'submitted':submitted}">
+        <div class="cat_template_row" ng-if="successmessages">
+            <div class="alert alert-success" role="alert">
+                    {{successmessages}}
+            </div>
+        </div>
+        <div class="cat_template_row" ng-show="userinfo.selectedRoles.length > 1">
+          <div style="margin-top:10px;">
+              <div class="alert alert-warning" role="alert">
+                  <strong>Error!</strong> For Phase 1 You can select only one role for a user
+              </div>
+           </div>
+        </div>
+                <div class="cat_template_row" ng-if="errormessages">
+                <div class="alert alert-danger" role="alert">
+                  <div ng-repeat="errormessage in errormessages">
+                    <div ng-repeat="(key, value) in errormessage">
+                      {{value}}
+                    </div>
+                  </div>
+                </div>
+                </div>
+  <div class="form-group" ng-init="getRoles()">
+  <div ng-repeat="userrole in userroles">
+  <div>
+  <strong>Current User Role:</strong><span class="quote-status-display">{{userrole.display_name}}</span>
+  </div>
+  </div>
+  	<label for="roles">Select Roles</label>
+  	<select style="height: 30%;" ng-model="userinfo.selectedRoles" name="userRole" multiple>
+    	<option ng-repeat="role in roles"
+            value="{{role.name}}">
+      		{{role.display_name}}
+    	</option>
+	</select>
+  </div>
+
+  <div class="form-group">
+    <label for="username"> User Name </label>
+    <input type="text" class="form-control" ng-model="userinfo.username" name="username" minlength="8" readonly></input>
+  </div>
+
+   <div class="form-group">
+    <label for="first_name"> First Name </label>
+    <input type="text" class="form-control" ng-model="userinfo.first_name" name="first_name" required></input>
+    <span class="messages" ng-messages="userEdit.first_name.$error" ng-if="submitted" >
+
+      <span ng-message='required'>Please enter First Name.</span>
+      <span ng-messages-include="/js/tpl/messages.html"></span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="email"> Email </label>
+    <input type="email" class="form-control" ng-model="userinfo.email" name="email" ng-required="true" ng-minlength="8" ng-pattern="/^[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/"></input>
+    <span class="messages" ng-messages="userEdit.email.$error" ng-if="submitted">
+      <span ng-message='required'>Please enter Email.</span>
+      <span ng-message="pattern">Please enter Valid Email.</span>
+      <span ng-messages-include="/js/tpl/messages.html"></span>
+
+    </span>
+  </div>
+
+    <div class="form-group">
+    <label for="phonenumber"> Phone Number </label>
+    <input type="text" class="form-control" ng-model="userinfo.phonenumber" name="phonenumber" required ng-pattern="/^[0789]\d{9}$/"></input>
+    <span class="messages" ng-messages="userEdit.phonenumber.$error"  ng-if="submitted">
+      <span ng-message='required'>Please enter Phone number</span>
+      <span ng-message="pattern">Please enter Valid PhoneNumber.</span>
+      <span ng-messages-include="/js/tpl/messages.html"></span>
+    </span>
+    </div>
+
+  <div class="form-group">
+     <label>Password  </label>
+     <input type="password" class="form-control" name="password" ng-model="userinfo.password"  ng-minlength="8"></input>
+  </div>
+
+
+  <div class="form-group">
+      <label>Re-Type Password  </label>
+      <input type="password" class="form-control" name="confirmPassword" ng-model='userinfo.confirmPassword' ng-minlength="8"></input>
+     <div ng-show="userinfo.password != userinfo.confirmPassword">
+     Passwords don't match
+     </div>
+  </div>
+
+
+  <div class="form-group">
+  <!--   verification token -->
+  </div>
+
+
+  <div class="form-group">
+  <!-- future perpose captch -->
+  </div>
+
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-default">Update Changes</button>
+    <button type="reset" class="btn btn-default">Reset</button>
+  </div>
+
+
+  </form>
+        <br/>
+    </div>
+</div>
+

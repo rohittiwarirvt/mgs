@@ -1,0 +1,41 @@
+<div class="modal-body">
+      <span ng-controller="MGSCommonController" class="btn-close">
+      <button class="close" type="button" ng-click="closepopup()">&times;</button>
+      </span>
+
+  <div class="col-md-7 col-xs-7 loginform-left">
+    <div class="alert alert-danger" ng-if="loginError" role="alert">{{loginErrorText}}
+      <span ng-if="userNumber">Please <a ng-controller="MGSCommonController" ng-click="openOTP(userNumber, id)">click here</a> to verify mobile number.</span></div>
+    <span class="hightlight popup-title">Login</span>
+    <form name="UserLogin" novalidate class="userlogin" ng-submit="login()" ng-class="{'submitted':submitted}">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" ng-model="username" name="username" minlength="3" required>
+        <span class="messages" ng-messages="UserLogin.username.$error"  ng-if="submitted">
+          <span ng-message='required'>Please enter username.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" ng-model="password" name="password" minlength="5" required>
+        <span class="messages" ng-messages="UserLogin.password.$error"  ng-if="submitted">
+          <span ng-message='required'>Please enter password.</span>
+           <span ng-message="minlength">Please enter at least 5 characters.</span>
+          <span ng-messages-include="/js/tpl/messages.html"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-info" ng-click="submitted=true">Login</button>
+        <span ng-controller="MGSCommonController">
+          <a class="forgot" ng-click="closepopup();openforgot()">Forgot Password?</a>
+        </span>
+      </div>
+    </form>
+    <div ng-controller="MGSCommonController">
+      <span>New User?</span>
+      <a ui-sref="register" ng-click="closepopup();opensignup();">Register Here</a>
+    </div>
+  </div>
+  <div class="col-md-5 col-xs-5 loginform-right" ng-controller="MGSCommonController">
+    <button  class="btn btn-primary" ng-click="continueasguest();">Continue as Guest</button>
+  </div>
+</div>

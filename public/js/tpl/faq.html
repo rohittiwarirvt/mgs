@@ -1,0 +1,28 @@
+<section id="faq-section" class="faq-section section-area">
+  <div class="container">
+      <div class="section-title">
+          <h2>FAQ’s</h2>
+      </div>
+      <div ng-init="serviceFaq()">
+        <div class="row">
+            <div class="col-md-6">
+              <div ng-repeat="faq in faqs" ng-if="$index < (faqs.length/2)">
+                <uib-accordion>
+                  <uib-accordion-group heading="{{faq.question}}">
+                    {{faq.answer}}
+                  </uib-accordion-group>
+                </uib-accordion>
+                </div>
+            </div>
+            <div class="col-md-6">
+              <div ng-repeat="faq in faqs" ng-if="$index > (faqs.length/2)">
+                <uib-accordion>
+                  <uib-accordion-group heading="{{faq.question}}">
+                    {{faq.answer}}
+                  </uib-accordion-group>
+                </uib-accordion>
+                </div>
+            </div>
+        </div>
+      </div>
+</section>

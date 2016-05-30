@@ -1,0 +1,24 @@
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="alert alert-danger" ng-if="loginError" role="alert">{{loginErrorText}}</div>
+
+    <div class="cat_template_row" ng-show="successmessages">
+          <div class="alert alert-success" role="alert">
+             {{successmessages}}
+          </div>
+  </div>
+    <div class="well">
+        
+        <form role="form" name="UnsubscribeForm" novalidate>
+
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" ng-model="unsubscribe.email" required name="email" id="email">
+            </div>
+           <td><button class="btn btn-primary" ng-click="delete()">Unsubscribe</button></td>
+           </tr>
+        </form>
+        <br/>
+       
+    </div>
+</div>
+   
+      

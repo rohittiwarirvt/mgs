@@ -1,0 +1,104 @@
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="alert alert-danger" ng-if="loginError" role="alert">{{loginErrorText}}</div>
+    <div class="well">
+        <h3>Add Address</h3>
+        <form role="form" name="AddressBookForm" ng-submit="save()" ng-controller="AddressBookController" novalidate ng-class="{'submitted':submitted}"   >
+            <div class="form-group" >
+                <label class="control-label" for="Title">Title</label>
+                    <input type="text" class="form-control" placeholder="Title" ng-model="addressbook.title"  name="title" id="title">
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label" for="First Name">First Name</label>
+                    <input type="text" class="form-control" ng-model="addressbook.first_name" name="first_name" id="first_name" required />
+                    <span class="messages" ng-messages="AddressBookForm.first_name.$error"  ng-if="submitted">
+                        <span ng-message='required'>Please enter first name.</span>
+                    </span>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label" for="Last Name">Last Name</label>
+                <input type="text" class="form-control" ng-model="addressbook.last_name" name="last_name" id="last_name" required />
+                <span class="messages" ng-messages="AddressBookForm.last_name.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter last name.</span>
+                </span>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label" for="Address Line1">Address Line1</label>
+                <input type="text" class="form-control" ng-model="addressbook.address_line1" name="address_line1" id="address_line1" required />
+                <span class="messages" ng-messages="AddressBookForm.address_line1.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter Address Line1.</span>
+                </span>
+            </div>
+
+             <div class="form-group" >
+                <label class="control-label" for="Address Line2">Address Line2</label>
+                <input type="text" class="form-control" ng-model="addressbook.address_line2" name="address_line2" id="address_line2" required />
+                <span class="messages" ng-messages="AddressBookForm.address_line2.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter Address Line2.</span>
+                </span>
+            </div>
+
+             <div class="form-group" >
+                <label class="control-label" for="Landmark">Landmark</label>
+                <input type="text" class="form-control" ng-model="addressbook.landmark" name="landmark" id="landmark" />
+            </div>
+
+             <div class="form-group" >
+                <label class="control-label" for="Pincode">Pincode</label>
+                <input type="text" class="form-control" ng-model="addressbook.pincode" name="pincode" id="pincode" ng-minlength="5" ng-pattern="/^[0-9]{1,7}$/" required />
+                <span class="messages" ng-messages="AddressBookForm.pincode.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter a Pincode.</span>
+                    <span ng-message="minlength">Message must be over 5 characters</span>
+                    <span ng-show="AddressBookForm.$error.pattern">Please enter valid number!</span>
+                </span>
+            </div>
+        
+            <div class="form-group" >
+                <label class="control-label" for="Country">Country</label>
+                <select id="country" name="country" class="form-control" ng-model="addressbook.country" required><option value=''>Select</option> <option ng-repeat="country in countries" value='{{country.id}}'>{{country.name}}</option></select>
+                <span class="messages" ng-messages="AddressBookForm.country.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please select country.</span>
+                </span>
+            </div>    
+
+            <div class="form-group" >
+                <label class="control-label" for="State">State</label>
+                <select id="state" name="state" class="form-control" ng-model="addressbook.state" required><option value=''>Select</option> <option ng-repeat="state in states" value='{{state.id}}'>{{state.name}}</option></select>
+                <span class="messages" ng-messages="AddressBookForm.state.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please select state.</span>
+                </span>
+            </div>    
+
+            <div class="form-group" ng-controller = 'MGSCommonController' ng-init="getCities()">
+                <label class="control-label" for="City">City</label>
+                <select ng-controller = 'MGSCommonController' id="city" name="city" class="form-control" ng-model="addressbook.city" required><option value=''>Select</option> <option ng-repeat="city in cities" value='{{city.id}}'>{{city.name}}</option></select>
+                <span class="messages" ng-messages="AddressBookForm.city.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please select city.</span>
+                </span>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label" for="Phone Number">Phone Number</label>
+                <input type="text" class="form-control" ng-model="addressbook.phone_number" name="phone_number" id="phone_number" ng-pattern="/^[0-9]{1,10}$/"  ng-minlength="10" required />
+                <span class="messages" ng-messages="AddressBookForm.phone_number.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter Phone Number.</span>
+                    <span ng-show="AddressBookForm.$error.pattern">Please enter valid number!</span>
+                </span>
+            </div>
+  
+            <div class="form-group" >
+                <label class="control-label" for="email">Email</label>
+                <input type="email" class="form-control" name="email" ng-model="addressbook.email"  />
+                <span class="messages" ng-messages="AddressBookForm.email.$error"  ng-if="submitted">
+                    <span class="error" ng-show="AddressBookForm.input.$error.email">Please enter a valid email.</span>
+                </span>
+            </div> 
+
+            <button type="submit" class="btn btn-primary btn-large" ng-click="submitted=true">Submit</button>
+            <button type="reset" class="btn btn-primary btn-large"  ng-click="reset()" >Clear</button>
+        </form>
+    </div>
+</div>
+

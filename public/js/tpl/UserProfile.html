@@ -1,0 +1,143 @@
+<!-- Services Section -->
+<div id="page-wrapper" ng-if="isAuthenticated()">
+  <section id="profile-wrapper" class="profile-page static-page">
+      <div class="alert alert-danger" ng-if="loginError" role="alert">{{loginErrorText}}</div>
+      <div class="container" ng-controller="MGSCommonController">
+       <div class="tab-structure">
+          <div ng-class="{true: 'userprofile active', false: 'servicehistory inactive'}[showDiv=='userprofile']"><a ui-sref="UserProfile">My Profile</a></div>
+          <div ng-class="{true: 'userprofile active', false: 'servicehistory inactive'}[showDiv=='servicehistory']"><a ui-sref="MyService">Service History</a></div>
+        </div>
+        <!-- My Profile -->
+          <div id="rs-table" ng-show="showDiv=='userprofile'">
+            <h4 class="myprofile-title">Personal Information</h4>
+            <form role="form" name="profileForm" ng-controller="UserProfileController" ng-submit="update()" ng-class="{'submitted':submitted}" novalidate class="profileForm">
+              <div class="cat_template_row" ng-if="successmessages">
+                <div class="alert alert-success" role="alert">
+                    {{successmessages}}
+                </div>
+                </div>
+                <div class="cat_template_row" ng-if="errormessages">
+                <div class="alert alert-danger" role="alert">
+                  <div ng-repeat="errormessage in errormessages">
+                    <div ng-repeat="(key, value) in errormessage">
+                      {{value}}
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                      <div class="profile-image" >
+                        <img src="/themes/mgs/images/default-user.png">
+                      </div>
+                     </div>
+                     <div class="col-sm-5">
+                        <input type="hidden" class="form-control" ng-model="profile.id" name="id" readonly>
+                        <div class="form-group">
+                          <input type="text" class="form-control"  placeholder="Username *" required ng-model="profile.username" name="username" readonly>
+                          <span class="messages" ng-messages="profileForm.username.$error" ng-if="submitted" >
+                          <span ng-message='required'>Please enter Username.</span>
+                          </span>
+                        </div>
+                        <div class="col-md-6 input-left-box">
+                        <div class="form-group">
+                          <input type="text" class="form-control"  placeholder="First Name *" required ng-model="profile.firstname" name="firstname">
+                          <span class="messages" ng-messages="profileForm.firstname.$error" ng-if="submitted" >
+                          <span ng-message='required'>Please enter Firstname.</span>
+                          </span>
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control"  placeholder="Last Name *" required ng-model="profile.lastname" name="lastname">
+                          <span class="messages" ng-messages="profileForm.lastname.$error" ng-if="submitted" >
+                          <span ng-message='required'>Please enter Lastname.</span>
+                          </span>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                              <input type="email" class="form-control" placeholder="Email *" name="email" required ng-model="profile.email" ng-pattern="/^[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/" name="email">
+                              <span class="messages" ng-messages="profileForm.email.$error" ng-if="submitted">
+                              <span ng-message='required'>Please enter Email.</span>
+                              <span ng-message="pattern">Please enter Valid Email.</span>
+                              <span ng-messages-include="/js/tpl/messages.html"></span>
+                              </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control"  placeholder="Phone No. *" required ng-model="profile.phonenumber" name="phonenumber" ng-pattern="/^[0789]\d{9}$/">
+                            <span class="messages" ng-messages="profileForm.phonenumber.$error" ng-if="submitted">
+                             <span ng-message='required'>Please enter Phone Number.</span>
+                              <span ng-message="pattern">Please enter Valid PhoneNumber.</span>
+                              <span ng-messages-include="/js/tpl/messages.html"></span>
+                              </span>
+                        </div>
+                        <div class="form-group">
+                          <input type="text" name="address1"  id="address1"  class="form-control" ng-model="profile.address1" placeholder="Address 1" >
+                        </div>
+                        <div class="form-group">
+                          <input type="text" name="address2"  id="address2"  class="form-control" ng-model="profile.address2" placeholder="Address 2">
+                        </div>
+                        <div class="col-md-6 input-left-box">
+                        <div class="form-group">
+                            <input type="text" name="city"  ng-model="profile.city" class="form-control" placeholder="City">
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="pincode" ng-model="profile.pincode" ng-pattern="/^[4-9]\d{5}$/"  class="form-control" placeholder="Pincode">
+                                <span class="messages" ng-messages="profileForm.pincode.$error" ng-if="submitted">
+                              <span ng-message="pattern">Please enter Valid Pincode.</span>
+                              <span ng-messages-include="/js/tpl/messages.html"></span>
+                              </span>
+                            </div>
+                        </div>
+
+                    <button class="btn btn-primary" ng-click="update()">Update Profile</button>
+                </div>
+            </div>
+        </form>
+        <div class="divider"></div>
+        <div class="password-section">
+          <div class="row">
+            <div class="col-sm-3">
+            <h4>Change Password</h4>
+              <form role="form" name="passwordReset" ng-controller="UserProfileController" ng-submit="resetpassword()" ng-class="{'submitted':submitted}" novalidate>
+                <div class="cat_template_row" ng-show="message">
+                  <div class="alert alert-success" role="alert">
+                    {{message}}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Current Password *" ng-model="updatepassword.cpassword" required name="cpassword">
+                  <span class="messages" ng-messages="passwordReset.cpassword.$error" ng-if="submitted">
+                  <span ng-message='required'>Please enter your Current Password.</span>
+                  <span ng-messages-include="/js/tpl/messages.html"></span>
+                  </span>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="New Password *" name="npassword" ng-model="updatepassword.npassword" ng-minlength="5"  required>
+                  <span class="messages" ng-messages="passwordReset.npassword.$error" ng-if="submitted">
+                  <span ng-message='required'>Please enter New Password.</span>
+                  <span ng-messages-include="/js/tpl/messages.html"></span>
+                  </span>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Retype New Password *" name="confirmPassword" ng-model='updatepassword.confirmPassword' ng-required="true" ng-minlength="5" required>
+                  <span class="messages" ng-messages="passwordReset.confirmPassword.$error" ng-if="submitted">
+                  <span ng-message='required'>Please enter Confirm Password</span>
+                  <div ng-show="updatepassword.confirmPassword != updatepassword.npassword">
+                  <span>Passwords don't match</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-reset">Change Password</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+          </div>
+      </div>
+  </section>
+</div>
+

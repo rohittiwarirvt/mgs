@@ -1,0 +1,60 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+
+
+.submitted .ng-invalid {
+    border-color: red;
+    outline-color: red;
+}
+
+.submitted .ng-valid {
+    border-color: green;
+    outline-color: green;
+}
+
+.submitted .messages {
+  font-size: smaller;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  color: red;
+}
+
+.margin{
+  margin-bottom: 5px;
+}
+
+.adminUsersTable {
+    width: 100%;
+    text-align: left;
+    background-color: #5bc0de;
+}
+

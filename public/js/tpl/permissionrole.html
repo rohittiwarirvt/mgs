@@ -1,0 +1,37 @@
+<div class="main-content" show-if-has-permit="view-permission">
+	<!-- start: FIRST SECTION -->
+	<div id="container-fluid" class="container" >
+    <div id="page-wrapper">
+      <div class="row">
+        <div class="col-lg-12 dt-content">
+        <div class="loggedin-header">
+          <div class="">
+            <h1 class="page-header">
+             Attach Permission to Roles
+            </h1>
+          </div>
+         </div>
+					<div class="table-responsive">
+						<table class="table table-striped table-hover" id="sample_2">
+					    	<thead >
+								<tr>
+					                <th>Permission</th>
+					                <th ng-repeat='role in roles'>{{role.display_name}}</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					        	<tr ng-repeat='permission in permissions '>
+					        		<td>{{permission.display_name}}</td>
+					        		<td ng-repeat='role in roles' >
+					                    <input type="checkbox" ng-checked="permissionrole1.indexOf(permission.id+'_'+role.id) != -1" ng-model='checkStatus' ng-click="update(permission.id, role.id, checkStatus)">
+					        		</td>
+					        	</tr>
+					        </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end: FIRST SECTION -->
+	</div>
+</div>

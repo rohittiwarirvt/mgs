@@ -1,0 +1,88 @@
+<section id="contact-section" class="static-pages" ng-controller="MGSCommonController">
+    <div class="static-head">
+    <div class="container">
+        <div class="section-title">
+          <h1>Contact Us</h1>
+        </div>
+    </div>
+    </div>
+    <div class="container">
+        <div class="col-md-8">
+            <div class="static-form">
+
+                <p>We're happy to answer any questions you have. Just send us a message in the below form with any questions you may have.
+                </p>
+                    <h3>Contact Form</h3>
+                        <form role="form" name="contactForm" ng-controller="ContactController" ng-submit="save()" ng-class="{'submitted':submitted}" novalidate>
+                        <div class="cat_template_row" ng-if="successmessages">
+                            <div class="alert alert-success" role="alert">
+                            {{successmessages}}
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name *" ng-model="newcontact.name" required name="name" id="name">
+                                <span class="messages" ng-messages="contactForm.name.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter name.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Phone Number *" ng-model="newcontact.phonenumber" ng-pattern="/^[0789]\d{9}$/" required name="phonenumber" id="phonenumber">
+                                <span class="messages" ng-messages="contactForm.phonenumber.$error" ng-if="submitted">
+                                <span ng-message='required'>Please enter phone number.</span>
+                                <span ng-message="pattern">Please enter Valid phone number.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" ng-pattern="/^[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/" class="form-control" placeholder="Email  *" ng-model="newcontact.email" required name="email" id="email">
+                                <span class="messages" ng-messages="contactForm.email.$error" ng-if="submitted">
+                                <span ng-message='required'>Please enter email.</span>
+                                <span ng-message="pattern">Please enter valid email.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Subject *" ng-model="newcontact.subject" required name="subject" id="subject">
+                                <span class="messages" ng-messages="contactForm.subject.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter subject.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" ng-model="newcontact.description" required name="description" id="description" placeholder="Message *"></textarea>
+                                <span class="messages" ng-messages="contactForm.description.$error" ng-if="submitted" >
+                                <span ng-message='required'>Please enter description.</span>
+                                <span ng-messages-include="/js/tpl/messages.html"></span>
+                                </span>
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-click="ga('send', 'event', { eventCategory: 'User Login', eventAction: 'Button Click', eventLabel: 'Contact Us'});">Submit</button>&nbsp;&nbsp;
+                            <button type="reset" ng-click="reset()" class="btn btn-info">Reset</button>
+
+                        </form>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="right_contact" >
+                <h4>Address:</h4>
+                    <h5>Ground Floor, Calibre House, Near D'Mart Baner Road, Pune 411045</h5>
+                        <div class="contact-sec">
+                            <h4>Contact No:</h4>
+                            <h5>+91 9270890890</h5>
+                        </div>
+                        <div class="email-sec">
+                            <h4>Email address:</h4>
+                            <h5>support@mygharseva.com</h5>
+                        </div>
+                            <h4>Social Links</h4>
+                        <div class="social-media">
+                    <ul class="list-inline">
+                        <li><a href="https://www.facebook.com/MyGharSeva" target="_blank" class="facebook"></a></li>
+                        <li><a href="https://twitter.com/ghar_seva" target="_blank" class="twitter"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

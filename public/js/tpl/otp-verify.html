@@ -1,0 +1,26 @@
+<div id="page-wrapper">
+<section class="reset-password-page section-area static-page">
+  <div class="container">
+    <div class="alert alert-danger" ng-if="loginError" role="alert"></div>
+        <form role="form" name="OtpVerificationForm" ng-submit="verifyOtp()" ng-controller="OtpVerificationController" novalidate ng-class="{'submitted':submitted}"  class="thanku-form">
+        <div class="alert alert-error" role="alert" ng-bind-html="error_messages"> </div>
+        <div role="alert alert-success" ng-if="success_messages !=''"  ng-bind-html="success_messages"></div>
+        <div ng-show="success_messages" ng-controller="MGSCommonController">
+        <span ng-if="!regenerateOTP">Please Click here to <a ng-click="openlogin()">Login</a></span>
+        </div>
+        <div ng-show="!submitted || submitted && error_messages">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="otpverify.otp" name="otp" id="otp" ng-pattern="/^[0-9]{1,10}$/"  ng-maxlength="4" required  placeholder="Enter one time password" />
+                <span ng-if="!regenerateOTP" class="messages" ng-messages="OtpVerificationForm.otp.$error"  ng-if="submitted">
+                    <p ng-message='required'>Please enter valid one time password.</p>
+                    <span ng-show="OtpVerificationForm.$error.pattern">Please enter valid one time password!</span>
+                </span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-large" ng-click="submitted=true">Submit</button>
+            <button type="reset" class="btn btn-primary btn-large btn-regenrate"  ng-click="regerateOTP()" >Regenerate</button>
+        </div>
+        </form>
+    </div>
+</section>
+</div>
+

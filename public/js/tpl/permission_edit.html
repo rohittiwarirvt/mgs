@@ -1,0 +1,41 @@
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="well">
+        <h3>Edit Permission</h3>
+        <form ng-init="getPermissionsByID()" role="form" name="PermissionForm" ng-submit="update()" ng-controller="PermissionController" novalidate ng-class="{'submitted':submitted}"   >
+
+            <div class="form-group" >
+                <label class="control-label" for="Name"> Name</label>
+                    <input type="text" class="form-control" ng-model="permissions.name" name="name" id="name" required placeholder="Add Name"/>
+                    <span class="messages" ng-messages="permissions.name.$error"  ng-if="submitted">
+                        <span ng-message='required'>Please enter permission name.</span>
+                    </span>
+            </div>
+            <div class="form-group" >
+                <label class="control-label" for="Display Name">Display Name</label>
+                <input type="text" class="form-control" ng-model="permissions.display_name" name="display_name" id="display_name" required  placeholder="Enter display name"/>
+                <span class="messages" ng-messages="permissions.display_name.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter display name.</span>
+                </span>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label" for="description">Description</label>
+                <input type="text" class="form-control" ng-model="permissions.description" name="description" id="description" required  placeholder="Enter permission description"/>
+                <span class="messages" ng-messages="permissions.description.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter description.</span>
+                </span>
+            </div>
+
+             <div class="form-group" >
+                <label class="control-label" for="module">Module</label>
+                <input type="text" class="form-control" ng-model="permissions.module" name="module" id="module" required  placeholder="Add module name"/>
+                <span class="messages" ng-messages="permissions.module.$error"  ng-if="submitted">
+                    <span ng-message='required'>Please enter module name.</span>
+                </span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-large" ng-click="submitted=true">Submit</button>
+            <button type="reset" class="btn btn-primary btn-large"  ng-click="reset()" >Clear</button>
+        </form>
+    </div>
+</div>

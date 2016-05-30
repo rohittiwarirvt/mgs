@@ -1,0 +1,41 @@
+<div class="col-sm-4 col-sm-offset-4">
+    <div class="alert alert-danger" ng-if="loginError" role="alert">{{loginErrorText}}</div>
+
+    <div class="cat_template_row" ng-show="messages">
+          <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> {{messages}}
+          </div>
+  </div>
+    <div class="well">
+        
+        <form role="form" name="emailTemplateForm" novalidate>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email Subject" ng-model="template.subject" required name="subject" id="subject">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name ="template_body"placeholder="Email Body" ng-model="template.template_body" required id="template_body" ta-text-editor-class="border-around" ta-html-edito-class="border-around"></textarea>
+            </div>
+            <div class="form-group">
+            <select name="service" class="form-control" id="type" name="type" ng-model="template.type" required>
+                    <option value="">Select the type of request</option>
+                    <option value="registration">Registration</option>
+                    <option value="subscription">Subscription</option>
+                    <option value="forgot-password">Forgot Password</option>
+                    <option value="reset-password">Reset Password</option>
+                    <option value="rjob-success">Job Success</option>
+            </select>
+            </div>
+
+             <div class="form-group">
+                <input type="checkbox" name="status" id="status" ng-model="template.status" >Status
+            </div>
+           <td><button class="btn btn-primary" ng-click="add()">Add Template</button></td>
+           </tr>
+        </form>
+        <br/>
+       
+    </div>
+</div>
+   
+      

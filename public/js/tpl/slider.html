@@ -1,0 +1,18 @@
+<section id="slider-book-wrapper" class="full-width">
+	<div class="container">
+		<div ng-controller ='MGSCommonController' ng-init="getServices()">
+	        <form class="service-book-form" id="serviceBookForm" ng-submit="getService(Selectedservice)" name="serviceBookForm" ng-class="{'submitted':submitted}" novalidate>
+	            <div class="service-select-wrapper select-wrapper" >
+	                <label class="textfont">I am Looking for</label>
+                    <select id="masterService" name="masterService" ng-options="option.service_name for option 	in services track by option.id" ng-model="Selectedservice" ng-required="true">
+                     	<option value=''>Select a Service</option>
+                    </select>
+	                <button type="submit" class="textfont btn btn-info btn-sm" ng-click="submitted=true" >Go</button>
+	                <div ng-show="serviceBookForm.masterService.$error.required" class="messages" ng-if="submitted">
+    					Please select a service.
+					</div>
+	             </div>
+	        </form>
+		</div>
+	</div>
+</section>

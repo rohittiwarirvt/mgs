@@ -1,0 +1,27 @@
+<div class="container">
+	<h4>List of Users</h4>
+	<div class="cat_template_row" ng-if="successmessages">
+                <div class="alert alert-success" role="alert">
+                    {{successmessages}}
+                </div>
+                </div>
+	<button class="btn btn-success pull-right " ng-click="addUser()">Add New User</button>
+		<br><br>
+        <table class="table table-striped" ng-init="getUsers()">
+			<tr>
+				<th>UserName</th>
+				<th>Email</th>
+				<th>Phone Number</th>
+				<th>Action</th>
+			</tr>
+            <tr ng-repeat='user in users'>
+
+                <td>{{user.username}}</td>
+				<td>{{user.email}}</td>
+				<td>{{user.phonenumber}}</td>
+				<td><a href="#/admin/user/edit/{{user.id}}">
+				edit
+				</a>&nbsp;&nbsp;<a ng-click="delete(user.id);">delete</a></td>
+			</tr>
+        </table>
+</div>
